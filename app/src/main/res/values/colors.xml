@@ -2,4 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="InkBlack">#03071E</color>
+    <color name= "granate">#370617</color>
+    <color name="cherry">#6A040F</color>
+    <color name="rojo">#9D0208</color>
+    <color name="rojo2">#D00000</color>
+    <color name="naranja">#DC2F02</color>
+    <color name="naranja2">#E85D04</color>
+    <color name="naranja3">#F48C06</color>
+    <color name="amarillo">#faa307</color>
+    <color name="amarillo2">#ffba08</color>
 </resources>
