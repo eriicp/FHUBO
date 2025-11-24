@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/InkBlack"
-
-    tools:context=".Login">
+    tools:context=".Login"
+    >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +30,6 @@
         app:cardBackgroundColor="@color/InkBlack"
         app:cardCornerRadius="30dp"
         app:layout_constraintWidth_max="480dp"
-
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +37,6 @@
             android:orientation="vertical"
             >
             <TextView
-
                 android:fontFamily="@font/akira"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +55,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Correu electronic"
-
                 >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tietEmail"
@@ -96,13 +93,9 @@
                 android:layout_marginTop="20dp"
                 android:text="Iniciar sessió"
                 android:textColor="@color/black"
-
                 android:textSize="18sp"
-                app:backgroundTint="@color/white" />
-
-
-
-            <!-- TEXTO DE REGISTRARSE (AÑADIDO) -->
+                app:backgroundTint="@color/white"
+                />
             <TextView
                 android:id="@+id/tvRegister"
                 android:layout_width="wrap_content"
@@ -117,7 +110,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
-                android:padding="8dp" />
+                android:padding="8dp"
+                />
             <TextView
                 android:id="@+id/tvNoLogin"
                 android:layout_width="wrap_content"
@@ -130,8 +124,8 @@
                 android:padding="8dp"
                 android:text="o continua sense compte"
                 android:textColor="#80FFFFFF"
-                android:textSize="14sp" />
-
+                android:textSize="14sp"
+                />
     </LinearLayout>
     </androidx.cardview.widget.CardView>
 
