@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/profile_svgrepo_com"
+        android:title="perfil"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/star_svgrepo_com"
+        android:title="preferits"
+        app:showAsAction="always"/>
+        />
+    <item
+        android:id="@+id/action_city"
+        android:icon="@drawable/map_svgrepo_com"
+        android:title="ciutats"
+        app:showAsAction="always"/>
+        />
+    <item
+        android:id="@+id/action_film"
+        android:icon="@drawable/clapper_board_svgrepo_com"
+        android:title="pelicules"
+        app:showAsAction="always"/>
+        />
+</menu>

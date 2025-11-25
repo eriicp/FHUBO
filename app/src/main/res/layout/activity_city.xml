@@ -8,87 +8,51 @@
     android:layout_height="match_parent"
     tools:context=".CityActivity">
 
-<TextView
-android:id="@+id/tvTitle"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginStart="20dp"
-android:layout_marginTop="20dp"
-android:fontFamily="@font/akira"
-android:text="FHUBO"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toTopOf="parent" />
+        <include>
 
-<SearchView
-android:id="@+id/svCity"
-android:layout_width="0dp"
-android:layout_height="50dp"
-android:layout_marginStart="20dp"
-android:layout_marginTop="32dp"
-android:layout_marginEnd="20dp"
-android:background="@drawable/sv_rounded"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        </include>
 
-<androidx.recyclerview.widget.RecyclerView
-android:id="@+id/rvCities"
-android:layout_width="match_parent"
-android:layout_height="0dp"
-android:layout_marginTop="20dp"
-app:layout_constraintBottom_toTopOf="@+id/cvCityMenu"
-app:layout_constraintTop_toBottomOf="@+id/svCity"
-tools:listitem="@layout/recylercity" />
+        <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/akira"
+        android:text="@string/fhubo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-<androidx.cardview.widget.CardView
-android:id="@+id/cvCityMenu"
-android:layout_width="match_parent"
-android:layout_height="80dp"
-android:backgroundTint="@color/granate2"
-app:layout_constraintBottom_toBottomOf="parent">
-    <LinearLayout
+        <SearchView
+        android:id="@+id/svCity"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/sv_rounded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCities"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginBottom="-4dp"
-        android:layout_marginTop="-4dp"
-        >
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/cherry"
-            app:cornerRadius="0dp"
-            />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/granate"
-            app:cornerRadius="0dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/granate"
-            app:cornerRadius="0dp"
-            android:layout_marginEnd="3dp"
-            />
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/granate"
-            app:cornerRadius="0dp"
-            android:src="@drawable/outline_account_circle_24"
-            app:tint="@color/white"
-            />
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/svCity"
+        tools:listitem="@layout/recylercity" />
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/granate"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
 
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+        />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
