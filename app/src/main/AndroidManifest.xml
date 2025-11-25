@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FHUBO">
         <activity
+            android:name=".User"
+            android:exported="false" />
+        <activity
             android:name=".settings"
             android:exported="false" />
         <activity
