@@ -8,10 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".CityActivity">
 
-        <include>
-
-        </include>
-
         <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -44,15 +40,59 @@
         app:layout_constraintTop_toBottomOf="@+id/svCity"
         tools:listitem="@layout/recylercity" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvCityMenu"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:backgroundTint="@color/granate2"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/granate"
-            android:elevation="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="-4dp"
+            android:layout_marginTop="-4dp"
+            >
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/cherry"
+                app:cornerRadius="0dp"
+                android:src="@drawable/outline_account_circle_24"
+                app:tint="@color/white"
+                />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/granate"
+                app:cornerRadius="0dp"
+                android:src="@drawable/outline_account_circle_24"
+                app:tint="@color/white"
+                />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/granate"
+                app:cornerRadius="0dp"
+                android:src="@drawable/outline_account_circle_24"
+                app:tint="@color/white"
+                />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/granate"
+                app:cornerRadius="0dp"
+                android:src="@drawable/outline_account_circle_24"
+                app:tint="@color/white"
+                />
 
-        />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fhubo.City
 import com.example.fhubo.CityAdapter
 import com.example.fhubo.R
-
+    
 class CityActivity : AppCompatActivity() {
 
     private lateinit var rvCities: RecyclerView
