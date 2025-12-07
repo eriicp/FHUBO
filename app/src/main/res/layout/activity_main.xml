@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/help_alt_svgrepo_com"
-        android:background="@color/white"
+        android:background="@color/design_default_color_background"
         app:tint="@color/InkBlack" />
 
 
@@ -69,39 +69,51 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:backgroundTint="@color/granate"
+                app:cornerRadius="0dp"
+                android:src="@drawable/clapper_board_svgrepo_com"
+                app:tint="@color/white"
+                style="@style/SettingsIconStyle"
+                android:padding="20dp"
+                android:layout_marginEnd="-3dp"
+                />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/cherry"
                 app:cornerRadius="0dp"
-                android:src="@drawable/outline_account_circle_24"
+                android:src="@drawable/map_svgrepo_com"
                 app:tint="@color/white"
-                />
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/granate"
-                app:cornerRadius="0dp"
-                android:src="@drawable/outline_account_circle_24"
-                app:tint="@color/white"
-                />
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/granate"
-                app:cornerRadius="0dp"
-                android:src="@drawable/outline_account_circle_24"
-                app:tint="@color/white"
-                />
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/granate"
-                app:cornerRadius="0dp"
-                android:src="@drawable/outline_account_circle_24"
-                app:tint="@color/white"
-                />
+                style="@style/SettingsIconStyle"
+                android:padding="20dp"
+                android:layout_marginEnd="-3dp"
 
+                />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/granate"
+                app:cornerRadius="0dp"
+                android:src="@drawable/star_svgrepo_com"
+                app:tint="@color/white"
+                style="@style/SettingsIconStyle"
+                android:padding="20dp"
+                android:layout_marginEnd="-3dp"
+                />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/granate"
+                app:cornerRadius="0dp"
+                android:src="@drawable/profile_svgrepo_com"
+                app:tint="@color/white"
+                style="@style/SettingsIconStyle"
+                android:padding="20dp"
+                android:layout_marginEnd="-3dp"
+                />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

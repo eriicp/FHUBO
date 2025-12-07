@@ -22,7 +22,7 @@
                 android:id="@+id/ivFilmName"
                 android:layout_width="130dp"
                 android:layout_height="200dp"
-                android:src="@drawable/filmStarWars"
+                android:src="@drawable/film_starwars"
                 android:layout_marginEnd="50dp"
                 />
 
@@ -46,7 +46,7 @@
                 android:id="@+id/ivFilmName2"
                 android:layout_width="130dp"
                 android:layout_height="200dp"
-                android:src="@drawable/filmStarWars"
+                android:src="@drawable/film_starwars"
                 android:layout_marginEnd="50dp"
                 />
 

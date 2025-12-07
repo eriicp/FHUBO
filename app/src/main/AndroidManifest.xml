@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FHUBO">
         <activity
+            android:name=".favoritesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cityLocationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".filmsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Login"
             android:exported="false" />
         <activity
