@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".filmsActivity">
+    android:background="@android:color/white"
+    tools:context=".FilmsActivity">
 
 
     <androidx.cardview.widget.CardView
@@ -19,6 +20,7 @@
             android:layout_height="match_parent"
             >
             <ImageButton
+                android:id="@+id/btn_back_mv"
                 style="@style/SettingsIconStyle"
                 android:src="@drawable/outline_arrow_back_ios_new_24"
                 android:background="@color/granate2"
@@ -67,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/granate"
+                android:backgroundTint="@color/cherry"
                 app:cornerRadius="0dp"
                 android:src="@drawable/clapper_board_svgrepo_com"
                 app:tint="@color/white"
@@ -79,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/cherry"
+                android:backgroundTint="@color/granate"
                 app:cornerRadius="0dp"
                 android:src="@drawable/map_svgrepo_com"
                 app:tint="@color/white"

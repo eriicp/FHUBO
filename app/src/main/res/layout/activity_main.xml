@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".MainActivity">
 
     <TextView
@@ -19,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:id="@+id/ivHelp"
         style="@style/SettingsIconStyle"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -42,6 +44,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/svMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <ImageView
+
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/ivFilmName"
+            android:layout_width="130dp"
+            android:layout_height="200dp"
+            android:src="@drawable/film_starwars"
+            android:layout_marginEnd="50dp"
+            />
+
+        <ImageView
+            android:id="@+id/tresPuntos"
+            android:layout_width="13dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="105dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/three_point_leader_2_svgrepo_com"
+            app:tint="@color/white" />
+
+    </FrameLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -49,8 +83,10 @@
         app:layout_constraintTop_toBottomOf="@id/svMain"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cvCityMenu"
         android:layout_marginTop="20dp"
-        tools:listitem="@layout/recyclerfilm"/>
+        tools:listitem="@layout/recyclerfilm"
+        />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCityMenu"
@@ -66,10 +102,11 @@
             android:layout_marginTop="-4dp"
             >
             <ImageButton
+                android:id="@+id/btnFilms"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/granate"
+                android:backgroundTint="@color/cherry"
                 app:cornerRadius="0dp"
                 android:src="@drawable/clapper_board_svgrepo_com"
                 app:tint="@color/white"
@@ -78,10 +115,11 @@
                 android:layout_marginEnd="-3dp"
                 />
             <ImageButton
+                android:id="@+id/btnLocations"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/cherry"
+                android:backgroundTint="@color/granate"
                 app:cornerRadius="0dp"
                 android:src="@drawable/map_svgrepo_com"
                 app:tint="@color/white"
@@ -91,6 +129,7 @@
 
                 />
             <ImageButton
+                android:id="@+id/btnFavorites"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -103,6 +142,7 @@
                 android:layout_marginEnd="-3dp"
                 />
             <ImageButton
+                android:id="@+id/btnProfile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

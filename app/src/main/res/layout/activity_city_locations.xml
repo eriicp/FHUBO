@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cityLocationsActivity">
+    android:background="@android:color/white"
+    tools:context=".CityLocationsActivity">
 
 
     <androidx.cardview.widget.CardView
@@ -19,6 +20,7 @@
             android:layout_height="match_parent"
             >
             <ImageButton
+                android:id="@+id/btn_back_city"
                 style="@style/SettingsIconStyle"
                 android:src="@drawable/outline_arrow_back_ios_new_24"
                 android:background="@color/granate2"
@@ -39,17 +41,23 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-
-
+    <!--
+        ESTE ES EL CAMBIO PRINCIPAL.
+        Se reemplaza el FrameLayout estático por un RecyclerView dinámico.
+        El diseño del FrameLayout debe ir en el archivo del item (ej: recyclercitylocation.xml).
+    -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvcitylocations"
-        android:layout_width="match_parent"
+        android:id="@+id/rvCityLocations"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingTop="12dp"
+        android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/cvCityTitle"
+        app:layout_constraintBottom_toTopOf="@id/cvCityMenu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
-        tools:listitem="@layout/recyclercitylocation"/>
+        tools:listitem="@layout/recyclercitylocation" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCityMenu"
@@ -65,6 +73,7 @@
             android:layout_marginTop="-4dp"
             >
             <ImageButton
+                android:id="@+id/btnFilms"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -77,6 +86,7 @@
                 android:layout_marginEnd="-3dp"
                 />
             <ImageButton
+                android:id="@+id/btnLocations"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -87,9 +97,9 @@
                 style="@style/SettingsIconStyle"
                 android:padding="20dp"
                 android:layout_marginEnd="-3dp"
-
                 />
             <ImageButton
+                android:id="@+id/btnFavorites"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -102,6 +112,7 @@
                 android:layout_marginEnd="-3dp"
                 />
             <ImageButton
+                android:id="@+id/btnProfile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -117,3 +128,4 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
