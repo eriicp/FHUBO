@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".favoritesActivity">
+    android:background="@android:color/white"
+    tools:context=".FavoritesActivity">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -148,6 +149,7 @@
             android:layout_marginTop="-4dp"
             >
             <ImageButton
+                android:id="@+id/btnFilms"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -160,6 +162,7 @@
                 android:layout_marginEnd="-3dp"
                 />
             <ImageButton
+                android:id="@+id/btnLocations"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -173,6 +176,7 @@
 
                 />
             <ImageButton
+                android:id="@+id/btnFavorites"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -185,6 +189,7 @@
                 android:layout_marginEnd="-3dp"
                 />
             <ImageButton
+                android:id="@+id/btnProfile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
