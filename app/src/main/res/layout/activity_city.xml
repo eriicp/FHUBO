@@ -32,14 +32,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-        <androidx.recyclerview.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCities"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/cvCityMenu"
         app:layout_constraintTop_toBottomOf="@+id/svCity"
+        app:layout_constraintBottom_toTopOf="@+id/cvCityMenu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/recylercity" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCityMenu"

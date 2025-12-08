@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             >
             <ImageButton
+                android:id="@+id/btn_back_mv"
                 style="@style/SettingsIconStyle"
                 android:src="@drawable/outline_arrow_back_ios_new_24"
                 android:background="@color/granate2"

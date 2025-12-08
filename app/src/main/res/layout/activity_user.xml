@@ -29,11 +29,11 @@
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Usuari"
+                android:layout_gravity="start"
                 android:fontFamily="@font/akira"
+                android:text="Usuari"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:layout_gravity="start"/>
+                android:textSize="20sp" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 
