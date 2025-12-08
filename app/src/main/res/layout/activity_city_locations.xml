@@ -5,52 +5,51 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/akira"
-        android:text="@string/fhubo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        style="@style/SettingsIconStyle"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/help_alt_svgrepo_com"
-        android:background="@color/design_default_color_background"
-        app:tint="@color/InkBlack" />
+    tools:context=".cityLocationsActivity">
 
 
-    <SearchView
-        android:id="@+id/svMain"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/sv_rounded"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvCityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:backgroundTint="@color/granate2"
+        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageButton
+                style="@style/SettingsIconStyle"
+                android:src="@drawable/outline_arrow_back_ios_new_24"
+                android:background="@color/granate2"
+                app:tint="@color/white"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paris"
+                android:fontFamily="@font/akira"
+                android:textColor="@color/white"
+                android:layout_centerInParent="true"
+                android:textSize="24sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvcitylocations"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/svMain"
+        app:layout_constraintTop_toBottomOf="@id/cvCityTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
-        tools:listitem="@layout/recyclerfilm"/>
+        tools:listitem="@layout/recyclercitylocation"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCityMenu"
@@ -117,6 +116,4 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
