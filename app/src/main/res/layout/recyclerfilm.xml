@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="50dp"
+    android:layout_marginEnd="50dp"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="50dp">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivFilmName"
+                android:layout_width="130dp"
+                android:layout_height="200dp"
+                android:src="@drawable/film_starwars"
+                android:layout_marginEnd="50dp"
+                />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:src="@drawable/three_point_leader_2_svgrepo_com"
+                app:tint="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="105dp"
+                />
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivFilmName2"
+                android:layout_width="130dp"
+                android:layout_height="200dp"
+                android:src="@drawable/film_starwars"
+                android:layout_marginEnd="50dp"
+                />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:src="@drawable/three_point_leader_2_svgrepo_com"
+                app:tint="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="105dp"
+                />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
