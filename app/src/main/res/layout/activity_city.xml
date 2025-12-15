@@ -37,82 +37,24 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintTop_toBottomOf="@+id/svCity"
         app:layout_constraintBottom_toTopOf="@+id/cvCityMenu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/recylercity" />
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvCityMenu"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:backgroundTint="@color/granate2"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginBottom="-4dp"
-            android:layout_marginTop="-4dp"
-            >
-            <ImageButton
-                android:id="@+id/btnFilms"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/granate"
-                app:cornerRadius="0dp"
-                android:src="@drawable/clapper_board_svgrepo_com"
-                app:tint="@color/white"
-                style="@style/SettingsIconStyle"
-                android:padding="20dp"
-                android:layout_marginEnd="-3dp"
-                />
-            <ImageButton
-                android:id="@+id/btnLocations"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/cherry"
-                app:cornerRadius="0dp"
-                android:src="@drawable/map_svgrepo_com"
-                app:tint="@color/white"
-                style="@style/SettingsIconStyle"
-                android:padding="20dp"
-                android:layout_marginEnd="-3dp"
-
-                />
-            <ImageButton
-                android:id="@+id/btnFavorites"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/granate"
-                app:cornerRadius="0dp"
-                android:src="@drawable/star_svgrepo_com"
-                app:tint="@color/white"
-                style="@style/SettingsIconStyle"
-                android:padding="20dp"
-                android:layout_marginEnd="-3dp"
-                />
-            <ImageButton
-                android:id="@+id/btnProfile"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/granate"
-                app:cornerRadius="0dp"
-                android:src="@drawable/profile_svgrepo_com"
-                app:tint="@color/white"
-                style="@style/SettingsIconStyle"
-                android:padding="20dp"
-                android:layout_marginEnd="-3dp"
-                />
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/granate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/bottom_menu"
+        app:itemIconTint="@color/white"
+        app:itemIconSize="40dp"
+        app:labelVisibilityMode="unlabeled"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
