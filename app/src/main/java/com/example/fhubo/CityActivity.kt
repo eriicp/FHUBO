@@ -9,10 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fhubo.City
-import com.example.fhubo.CityAdapter
-import com.example.fhubo.R
-    
+
 class CityActivity : AppCompatActivity() {
 
     private lateinit var rvCities: RecyclerView
@@ -54,7 +51,7 @@ class CityActivity : AppCompatActivity() {
     // --- 3. INFLA EL MENÚ EN LA TOOLBAR ---
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Infla el menú que creaste; esto añade los ítems a la barra de acción.
-        menuInflater.inflate(R.menu.toolbar, menu)
+        menuInflater.inflate(R.menu.bottom_menu, menu)
         return true
     }
 
