@@ -27,6 +27,7 @@
                 />
 
             <ImageView
+                android:id="@+id/recycler3puntos"
                 android:layout_width="20dp"
                 android:layout_height="30dp"
                 android:src="@drawable/three_point_leader_2_svgrepo_com"

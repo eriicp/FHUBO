@@ -12,26 +12,62 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FHUBO">
         <activity
-            android:name=".favoritesActivity"
+            android:name=".Popup5"
             android:exported="false" />
         <activity
-            android:name=".cityLocationsActivity"
+            android:name=".Popup4"
             android:exported="false" />
         <activity
-            android:name=".filmsActivity"
+            android:name=".Popup3"
             android:exported="false" />
         <activity
-            android:name=".Login"
-            android:exported="false" />
+            android:name=".Popup2"
+            android:exported="false" /> <!-- Actividad de inicio -->
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- Resto de las actividades (sin duplicados y con nombres correctos) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".Signin"
+            android:exported="false" />
+        <activity
+            android:name=".FilmsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CityLocationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavoritesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Settings"
+            android:exported="false" />
+        <activity
+            android:name=".User"
+            android:exported="false" />
+        <activity
+            android:name=".Language"
+            android:exported="false" />
+        <activity
+            android:name=".Notificacions"
+            android:exported="false" />
+        <activity
+            android:name=".PopUpHelp1"
+            android:exported="false" />
     </application>
 
 </manifest>

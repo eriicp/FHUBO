@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Language"
+    android:background="@android:color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_language"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/outline_arrow_back_ios_new_24"
+            app:navigationIconTint="@android:color/black">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Idioma"
+                android:fontFamily="@font/akira"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_gravity="start"/>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <View
+            android:id="@+id/app_bar_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1F000000" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RadioGroup
+            android:id="@+id/rg_languages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="24dp">
+
+            <RadioButton
+                android:id="@+id/rb_catalan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Català"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:paddingVertical="16dp"
+                android:layoutDirection="rtl"
+                android:checked="true"
+                android:buttonTint="@android:color/black"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1F000000" />
+
+            <RadioButton
+                android:id="@+id/rb_spanish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Español"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:paddingVertical="16dp"
+                android:layoutDirection="rtl"
+                android:buttonTint="@android:color/black"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1F000000" />
+
+            <RadioButton
+                android:id="@+id/rb_english"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="English"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:paddingVertical="16dp"
+                android:layoutDirection="rtl"
+                android:buttonTint="@android:color/black"/>
+
+        </RadioGroup>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

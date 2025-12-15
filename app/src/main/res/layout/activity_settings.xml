@@ -6,21 +6,25 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".settings">
+    android:background="@android:color/white"
+tools:context=".Settings">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar_settings"
+            android:id="@+id/toolbar_language"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/outline_arrow_back_ios_new_24">
+            app:navigationIcon="@drawable/outline_arrow_back_ios_new_24"
+            app:navigationIconTint="@android:color/black">
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -28,10 +32,17 @@
                 android:layout_height="wrap_content"
                 android:text="Configuracio"
                 android:fontFamily="@font/akira"
+                android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:layout_gravity="start"/>
 
         </com.google.android.material.appbar.MaterialToolbar>
+
+        <View
+            android:id="@+id/app_bar_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1F000000" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -69,6 +80,11 @@
                 android:fontFamily="sans-serif"/>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1F000000" />
+
         <LinearLayout
             android:id="@+id/ll_premium"
             android:layout_width="match_parent"
@@ -92,6 +108,11 @@
                 android:fontFamily="sans-serif"/>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1F000000" />
+
         <LinearLayout
             android:id="@+id/ll_language"
             android:layout_width="match_parent"
@@ -114,6 +135,11 @@
                 android:textSize="20sp"
                 android:fontFamily="sans-serif"/>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1F000000" />
 
         <LinearLayout
             android:id="@+id/ll_notifications"
@@ -139,28 +165,17 @@
                 android:fontFamily="sans-serif"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_privacy"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingVertical="10dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true">
+            android:layout_height="1dp"
+            android:background="#1F000000" />
 
-            <ImageView
-                style="@style/SettingsIconStyle"
-                android:src="@drawable/privacy_tips_svgrepo_com"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Privacitat"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif"/>
-        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1F000000" />
 
         <LinearLayout
             android:id="@+id/ll_help"
@@ -185,6 +200,11 @@
                 android:fontFamily="sans-serif"/>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1F000000" />
+
         <LinearLayout
             android:id="@+id/ll_logout"
             android:layout_width="match_parent"
@@ -207,6 +227,11 @@
                 android:textSize="20sp"
                 android:fontFamily="sans-serif"/>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1F000000" />
 
     </LinearLayout>
 
