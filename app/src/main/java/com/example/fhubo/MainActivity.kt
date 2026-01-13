@@ -22,10 +22,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // --- Inicialización de vistas ---
-        val btnFilms = findViewById<ImageView>(R.id.btnFilms)
-        val btnLocations = findViewById<ImageView>(R.id.btnLocations)
-        val btnFavorites = findViewById<ImageView>(R.id.btnFavorites)
-        val btnProfile = findViewById<ImageView>(R.id.btnProfile)
+
 
         // Vistas para hacer clicables
         val ivFilmName = findViewById<ImageView>(R.id.ivFilmName)
@@ -49,26 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         // --- Acciones de la barra de menú inferior ---
 
-        btnFilms.setOnClickListener {
-            // Ya estamos en MainActivity, idealmente esto debería ir a FilmsActivity si es otra pantalla
-            val intent = Intent(this, FilmsActivity::class.java) // Corregido para que no se recargue
-            startActivity(intent)
-        }
 
-        btnLocations.setOnClickListener {
-            val intent = Intent(this, CityActivity::class.java)
-            startActivity(intent)
-        }
-
-        btnFavorites.setOnClickListener {
-            val intent = Intent(this, FavoritesActivity::class.java)
-            startActivity(intent)
-        }
-
-        btnProfile.setOnClickListener {
-            val intent = Intent(this, Settings::class.java)
-            startActivity(intent)
-        }
         helpButton.setOnClickListener {
             val intent = Intent(this, Popup2::class.java)
             startActivity(intent)
