@@ -18,32 +18,6 @@ class FavoritesActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val btnFilms = findViewById<ImageView>(R.id.btnFilms)
-        val btnLocations = findViewById<ImageView>(R.id.btnLocations)
-        val btnFavorites = findViewById<ImageView>(R.id.btnFavorites)
-        val btnProfile = findViewById<ImageView>(R.id.btnProfile)
 
-        btnFilms.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Botón para ir a la lista de ciudades
-        btnLocations.setOnClickListener {
-            val intent = Intent(this, CityActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Botón para ir a la pantalla de favoritos
-        btnFavorites.setOnClickListener {
-            val intent = Intent(this, FavoritesActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Botón para ir a la pantalla de configuración/perfil
-        btnProfile.setOnClickListener {
-            val intent = Intent(this, Settings::class.java)
-            startActivity(intent)
-        }
     }
 }
