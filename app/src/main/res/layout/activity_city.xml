@@ -54,6 +54,7 @@
         app:menu="@menu/bottom_menu"
         app:itemIconTint="@color/white"
         app:itemIconSize="40dp"
-        app:labelVisibilityMode="unlabeled"/>
+        app:labelVisibilityMode="unlabeled"
+        />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
