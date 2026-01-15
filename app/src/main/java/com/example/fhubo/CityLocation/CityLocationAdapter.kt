@@ -1,8 +1,9 @@
-package com.example.fhubo
+package com.example.fhubo.CityLocation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fhubo.R
 
 
 class CityLocationAdapter(

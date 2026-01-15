@@ -2,9 +2,9 @@ package com.example.fhubo
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.fhubo.Main.MainActivity
 import com.google.android.material.button.MaterialButton
 
 class Popup2 : AppCompatActivity() {

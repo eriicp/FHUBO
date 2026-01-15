@@ -1,4 +1,4 @@
-package com.example.fhubo
+package com.example.fhubo.CityLocation
 
 data class CityLocation (
     val name:String,

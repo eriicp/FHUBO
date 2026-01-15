@@ -28,8 +28,14 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+            android:name=".Main.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Login"
             android:exported="false" />
@@ -40,19 +46,14 @@
             android:name=".FilmsActivity"
             android:exported="false" />
         <activity
-            android:name=".CityActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".City.CityActivity"
+            android:exported="false" >
         </activity>
         <activity
-            android:name=".CityLocationsActivity"
+            android:name=".CityLocation.CityLocationsActivity"
             android:exported="false" />
         <activity
-            android:name=".FavoritesActivity"
+            android:name=".Favorites.FavoritesActivity"
             android:exported="false" />
         <activity
             android:name=".Settings"

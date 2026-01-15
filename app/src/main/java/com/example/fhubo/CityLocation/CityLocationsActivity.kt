@@ -1,29 +1,38 @@
-package com.example.fhubo
+package com.example.fhubo.CityLocation
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fhubo.City.CityActivity
+import com.example.fhubo.DataSource
+import com.example.fhubo.Favorites.FavoritesActivity
+import com.example.fhubo.Main.MainActivity
+import com.example.fhubo.R
+import com.example.fhubo.Settings
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class CityActivity : AppCompatActivity() {
+class CityLocationsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CityAdapter
+    private lateinit var adapter: CityLocationAdapter
 
     private lateinit var bottomMenu: BottomNavigationView
+
+    private lateinit var btn_back_city : ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_city)
+        setContentView(R.layout.activity_city_locations)
 
-        recyclerView = findViewById(R.id.rvCities)
+        recyclerView = findViewById(R.id.rvCityLocations)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val cities = DataSource.cities
-        adapter = CityAdapter(
+        val cities = DataSource.cityLocations
+        adapter = CityLocationAdapter(
             items = cities,
             onItemClick = { item ->
                 Toast.makeText(
@@ -34,6 +43,11 @@ class CityActivity : AppCompatActivity() {
             }
         )
         recyclerView.adapter = adapter
+
+        btn_back_city = findViewById(R.id.btn_back_city)
+        btn_back_city.setOnClickListener {
+            finish()
+        }
 
         bottomMenu = findViewById(R.id.bottom_navigation)
         bottomMenu.setOnItemSelectedListener { item ->

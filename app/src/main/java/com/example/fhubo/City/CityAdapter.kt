@@ -1,8 +1,10 @@
-package com.example.fhubo
+package com.example.fhubo.City
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fhubo.City.CityViewHolder
+import com.example.fhubo.R
 
 
 class CityAdapter(
