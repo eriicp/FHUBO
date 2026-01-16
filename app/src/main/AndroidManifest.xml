@@ -26,15 +26,16 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true">
+        </activity>
+        <activity
+            android:name=".Main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Resto de las actividades (sin duplicados y con nombres correctos) -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+        </activity>
         <activity
             android:name=".Login"
             android:exported="false" />
@@ -45,13 +46,14 @@
             android:name=".FilmsActivity"
             android:exported="false" />
         <activity
-            android:name=".CityActivity"
+            android:name=".City.CityActivity"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".CityLocation.CityLocationsActivity"
             android:exported="false" />
         <activity
-            android:name=".CityLocationsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FavoritesActivity"
+            android:name=".Favorites.FavoritesActivity"
             android:exported="false" />
         <activity
             android:name=".Settings"
