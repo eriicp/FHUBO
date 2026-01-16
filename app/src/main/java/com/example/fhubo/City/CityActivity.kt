@@ -11,7 +11,7 @@ import com.example.fhubo.DataSource
 import com.example.fhubo.Favorites.FavoritesActivity
 import com.example.fhubo.Main.MainActivity
 import com.example.fhubo.R
-import com.example.fhubo.Settings
+import com.example.fhubo.Settings.Settings
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CityActivity : AppCompatActivity() {

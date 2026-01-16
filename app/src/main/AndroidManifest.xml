@@ -43,7 +43,7 @@
             android:name=".Signin"
             android:exported="false" />
         <activity
-            android:name=".FilmsActivity"
+            android:name=".Films.FilmsActivity"
             android:exported="false" />
         <activity
             android:name=".City.CityActivity"
@@ -56,16 +56,16 @@
             android:name=".Favorites.FavoritesActivity"
             android:exported="false" />
         <activity
-            android:name=".Settings"
+            android:name=".Settings.Settings"
             android:exported="false" />
         <activity
-            android:name=".User"
+            android:name=".Settings.User"
             android:exported="false" />
         <activity
-            android:name=".Language"
+            android:name=".Settings.Language"
             android:exported="false" />
         <activity
-            android:name=".Notificacions"
+            android:name=".Settings.Notificacions"
             android:exported="false" />
         <activity
             android:name=".PopUpHelp1"

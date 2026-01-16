@@ -5,14 +5,17 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fhubo.City.CityActivity
+import com.example.fhubo.CityLocation.CityLocationsActivity
 import com.example.fhubo.DataSource
 import com.example.fhubo.Favorites.FavoritesActivity
+import com.example.fhubo.Films.FilmsActivity
 import com.example.fhubo.Popup2
 import com.example.fhubo.R
-import com.example.fhubo.Settings
+import com.example.fhubo.Settings.Settings
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -32,16 +35,18 @@ class MainActivity : AppCompatActivity() {
         helpButton = findViewById(R.id.ivHelp)
         bottomMenu = findViewById(R.id.bottom_navigation)
         recyclerView = findViewById(R.id.rvFilms)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this,2)
         val films = DataSource.films
         adapter = MainAdapter(
             items = films,
             onItemClick = { item ->
-                Toast.makeText(
-                    this,
-                    "Has clicat: ${item.imageResource1}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                when (item.name){
+                    "star wars" -> intent = Intent(this, FilmsActivity::class.java)
+                    "hunger games" -> intent = Intent(this, CityLocationsActivity::class.java)
+                    "codigo da vinci" -> intent = Intent(this, CityLocationsActivity::class.java)
+                    "harry potter" -> intent = Intent(this, CityLocationsActivity::class.java)
+                }
+                startActivity(intent)
             }
         )
         recyclerView.adapter = adapter
