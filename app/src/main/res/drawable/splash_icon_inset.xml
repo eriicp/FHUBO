@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Aquest fitxer actua com un marc per al logo.
+    L'atribut `android:inset` afegeix un marge transparent al voltant del logo,
+    forçant el sistema a deixar espai i evitant que es retalli.
+    Pots augmentar el valor (ex: 48dp) per fer el logo més petit,
+    o disminuir-lo (ex: 24dp) per fer-lo més gran.
+-->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/logo"
+    android:inset="60dp" />

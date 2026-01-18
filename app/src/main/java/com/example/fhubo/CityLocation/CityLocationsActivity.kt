@@ -50,16 +50,31 @@ class CityLocationsActivity : AppCompatActivity() {
         }
 
         bottomMenu = findViewById(R.id.bottom_navigation)
+
+        // --- INICI DE LA CORRECCIÓ ---
+
+        // 1. Indiquem quin botó del menú ha d'aparèixer com a seleccionat
+        // Com que aquesta pantalla mostra localitzacions de ciutats, deixem marcat l'icona de "Ciutat".
+        bottomMenu.selectedItemId = R.id.action_city
+
+        // 2. Configurem el listener per a la navegació
         bottomMenu.setOnItemSelectedListener { item ->
+            // A diferencia de les pantalles principals, aquí NO evitem la recàrrega.
+            // Si l'usuari està en aquesta pantalla de detall i prem "Ciutat",
+            // volem que pugui tornar a la llista principal de ciutats.
+
             val selectedActivity : Intent? = when (item.itemId) {
                 R.id.action_film -> Intent(this, MainActivity::class.java)
                 R.id.action_city -> Intent(this, CityActivity::class.java)
                 R.id.action_favorite -> Intent(this, FavoritesActivity::class.java)
                 R.id.action_profile -> Intent(this, Settings::class.java)
-                else -> Intent(this,CityActivity::class.java)
+                else -> null
             }
-            startActivity(selectedActivity)
+            selectedActivity?.let {
+                startActivity(it)
+            }
             true
         }
+        // --- FI DE LA CORRECCIÓ ---
     }
 }

@@ -20,24 +20,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <SearchView
-        android:id="@+id/svCity"
+    <LinearLayout
+        android:id="@+id/search_container"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/sv_rounded"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+        <!-- Icono de la Lupa (Corregido) -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/search_alt_1_svgrepo_com"
+            app:tint="@color/white" />
+
+        <!-- Tu SearchView, ahora sin fondo propio y ocupando el espacio disponible -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/svMain"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="Buscar película..."
+            app:searchIcon="@null" />
+
+        <!-- El botón del filtro, alineado a la derecha -->
+        <ImageButton
+            android:id="@+id/btnFilter"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/filter_svgrepo_com"
+            app:tint="@color/white" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCities"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/svCity"
+        app:layout_constraintTop_toBottomOf="@+id/search_container"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -44,16 +44,31 @@ class CityActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         bottomMenu = findViewById(R.id.bottom_navigation)
+
+        // --- INICI DE LA CORRECCIÓ ---
+
+        // 1. Indiquem quin botó del menú ha d'aparèixer com a seleccionat
+        bottomMenu.selectedItemId = R.id.action_city
+
+        // 2. Configurem el listener per a la navegació
         bottomMenu.setOnItemSelectedListener { item ->
+            // Si l'usuari prem el botó de la pantalla on ja es troba, no fem res
+            if (item.itemId == R.id.action_city) {
+                return@setOnItemSelectedListener true
+            }
+
             val selectedActivity : Intent? = when (item.itemId) {
                 R.id.action_film -> Intent(this, MainActivity::class.java)
-                R.id.action_city -> Intent(this, CityActivity::class.java)
                 R.id.action_favorite -> Intent(this, FavoritesActivity::class.java)
                 R.id.action_profile -> Intent(this, Settings::class.java)
-                else -> Intent(this,CityActivity::class.java)
+                else -> null
             }
-            startActivity(selectedActivity)
+
+            selectedActivity?.let {
+                startActivity(it)
+            }
             true
         }
+        // --- FI DE LA CORRECCIÓ ---
     }
 }

@@ -4,11 +4,25 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-    <style name="SettingsIconStyle">
-    <item name="android:layout_width">24dp</item>
-    <item name="android:layout_height">24dp</item>
-    <item name="android:layout_marginEnd">10dp</item>
-    <item name="android:scaleType">fitCenter</item>
+
+    <!-- Tema para la Splash Screen (CORREGIT) -->
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <!-- 1. Color de fons de la pantalla -->
+        <item name="windowSplashScreenBackground">@color/InkBlack</item>
+        
+        <!-- 2. Icona a mostrar (el nostre fitxer inset amb marges) -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_inset</item>
+        
+        <!-- 3. El tema que s'aplicarà un cop acabi la splash screen -->
+        <item name="postSplashScreenTheme">@style/Theme.FHUBO</item>
     </style>
+
+    <style name="SettingsIconStyle">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
     <style name="Theme.FHUBO" parent="Base.Theme.FHUBO" />
 </resources>

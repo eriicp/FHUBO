@@ -2,6 +2,7 @@ package com.example.fhubo
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,26 +16,26 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_splash)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        // --- CÓDIGO AÑADIDO CON COROUTINES ---
-        // Lanza una coroutine asociada al ciclo de vida de la actividad
-        lifecycleScope.launch {
-            // Espera 2000 milisegundos (2 segundos) de forma no bloqueante
-            delay(2000)
+        // --- CÓDIGO DE LA ANIMACIÓN Y NAVEGACIÓN ---
+        val logo = findViewById<ImageView>(R.id.iv_logo)
 
-            // Crea el Intent para ir a la LoginActivity
-            val intent = Intent(this@SplashActivity, Login::class.java)
-            startActivity(intent)
+        // 1. Preparamos la animación: hacemos el logo invisible al principio
+        logo.alpha = 0f
 
-            // Cierra la SplashActivity
-            finish()
-        }
-        // --- FIN DEL CÓDIGO AÑADIDO ---
+        // 2. Creamos la animación de fundido (fade in)
+        logo.animate().apply {
+            alpha(1f) // Lo hacemos totalmente opaco
+            duration = 1500 // La animación durará 1.5 segundos
+            withEndAction {
+                // 3. Cuando la animación termine, esperamos un poco y navegamos
+                lifecycleScope.launch {
+                    delay(500) // Una pequeña pausa de 0.5 segundos
+                    val intent = Intent(this@SplashActivity, Login::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }.start()
     }
 }
-
