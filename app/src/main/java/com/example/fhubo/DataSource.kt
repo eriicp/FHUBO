@@ -2,6 +2,8 @@ package com.example.fhubo
 
 import com.example.fhubo.City.City
 import com.example.fhubo.CityLocation.CityLocation
+import com.example.fhubo.Favorites.Favorites
+import com.example.fhubo.Films.Films
 import com.example.fhubo.Main.Main
 
 object DataSource {
@@ -26,7 +28,19 @@ object DataSource {
     )
 
     val films : List<Main> = listOf(
-        Main(R.drawable.film_starwars,R.drawable.film_hungergames),
-        Main(R.drawable.film_codigodavinci,R.drawable.film_harrypotter)
+        Main("star wars",R.drawable.film_starwars),
+        Main("hunger games" , R.drawable.film_hungergames),
+        Main("codigo da vinci",R.drawable.film_codigodavinci),
+        Main("harry potter", R.drawable.film_harrypotter)
+    )
+
+    val favorites : List<Favorites> = listOf(
+        Favorites("Les espaces d'abraxas (Jocs de la fam)",R.drawable.location_hungergames_les_espaces_dabraxas),
+        Favorites( "Museo del Louvre (El Codi Da Vinci)", R.drawable.location_codigodavinci_louvre)
+    )
+
+    val filmLocations : List<Films> = listOf(
+        Films("Hoth","Glaciar Hardangerjøkulen", R.drawable.location_starwars_hoth),
+        Films("Tatooine", "Ajim, Tunisia", R.drawable.location_starwars_tatooine)
     )
 }

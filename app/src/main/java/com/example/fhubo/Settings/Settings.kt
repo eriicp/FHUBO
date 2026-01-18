@@ -1,10 +1,12 @@
-package com.example.fhubo
+package com.example.fhubo.Settings
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fhubo.Login
+import com.example.fhubo.R
 import com.google.android.material.appbar.MaterialToolbar
 
 class Settings : AppCompatActivity() {

@@ -1,7 +1,8 @@
-package com.example.fhubo
+package com.example.fhubo.Settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fhubo.R
 import com.google.android.material.appbar.MaterialToolbar
 
 class Language : AppCompatActivity() {
