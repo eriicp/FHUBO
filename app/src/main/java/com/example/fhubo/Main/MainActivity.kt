@@ -24,11 +24,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
-    // --- Variables de estado para el filtro ---
     private var currentCategory: String = "Totes"
-    private var currentSortOrder: String = SORT_NONE // Nuevo: para el orden
+    private var currentSortOrder: String = SORT_NONE
 
-    // --- Vistas ---
     private lateinit var helpButton: ImageView
     private lateinit var btnFilter: ImageButton
     private lateinit var svMain: SearchView
@@ -37,7 +35,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var bottomMenu: BottomNavigationView
 
     companion object {
-        // Constantes para la ordenación
         const val SORT_NONE = "none"
         const val SORT_YEAR_DESC = "year_desc"
         const val SORT_YEAR_ASC = "year_asc"
@@ -47,26 +44,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 1. Inicializar las vistas
         initViews()
-
-        // 2. Corregir el color del buscador
         setupSearchView()
-
-        // 3. Configurar RecyclerView
         setupRecyclerView()
-
-        // 4. Configurar Listeners
         setupListeners()
-
-        // 5. Configurar el menú de navegación inferior
         setupBottomNavigation()
-        
-        // Carga inicial
         performSearch(null)
     }
-
-    // --- Métodos de configuración ---
 
     private fun initViews() {
         helpButton = findViewById(R.id.ivHelp)
@@ -85,7 +69,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private fun setupRecyclerView() {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         adapter = MainAdapter(
-            items = emptyList(), // Empezamos con una lista vacía
+            items = emptyList(),
             onItemClick = { film ->
                 val intent = when (film.name) {
                     "Star Wars" -> Intent(this, FilmsActivity::class.java)
@@ -123,7 +107,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         }
     }
 
-    // --- Implementación de la búsqueda (SearchView) ---
     override fun onQueryTextSubmit(query: String?): Boolean {
         performSearch(query)
         return true
@@ -134,23 +117,19 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         return true
     }
 
-    // --- Lógica de filtrado y búsqueda ---
     private fun showCategoryPopupMenu(view: View) {
         val popup = PopupMenu(this, view)
         popup.menuInflater.inflate(R.menu.popup_categories, popup.menu)
 
         popup.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                // Opciones de Categoría
                 R.id.cat_totes -> currentCategory = "Totes"
                 R.id.cat_peliculas -> currentCategory = "Pel·lícules"
                 R.id.cat_llibres -> currentCategory = "Llibres"
                 R.id.cat_musica -> currentCategory = "Música"
-                // Opciones de Ordenación
                 R.id.sort_year_desc -> currentSortOrder = SORT_YEAR_DESC
                 R.id.sort_year_asc -> currentSortOrder = SORT_YEAR_ASC
             }
-            // Reaplicamos el filtro y la búsqueda con los nuevos criterios
             performSearch(svMain.query.toString())
             true
         }
@@ -160,25 +139,22 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private fun performSearch(query: String?) {
         val allItems = DataSource.films
 
-        // Criteri 1: Filtrar por Categoría
         val categorizedList = if (currentCategory == "Totes") {
             allItems
         } else {
             allItems.filter { it.category.equals(currentCategory, ignoreCase = true) }
         }
 
-        // Criteri 2: Filtrar por Texto de búsqueda
         val filteredList = if (query.isNullOrBlank()) {
             categorizedList
         } else {
             categorizedList.filter { it.name.contains(query, ignoreCase = true) }
         }
 
-        // Criteri 3: Ordenar por Año
         val sortedList = when (currentSortOrder) {
             SORT_YEAR_DESC -> filteredList.sortedByDescending { it.year }
             SORT_YEAR_ASC -> filteredList.sortedBy { it.year }
-            else -> filteredList // Sin orden específico
+            else -> filteredList
         }
 
         adapter.updateList(sortedList)

@@ -18,9 +18,7 @@ class CityActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CityAdapter
-
     private lateinit var bottomMenu: BottomNavigationView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,14 +43,9 @@ class CityActivity : AppCompatActivity() {
 
         bottomMenu = findViewById(R.id.bottom_navigation)
 
-        // --- INICI DE LA CORRECCIÓ ---
-
-        // 1. Indiquem quin botó del menú ha d'aparèixer com a seleccionat
         bottomMenu.selectedItemId = R.id.action_city
 
-        // 2. Configurem el listener per a la navegació
         bottomMenu.setOnItemSelectedListener { item ->
-            // Si l'usuari prem el botó de la pantalla on ja es troba, no fem res
             if (item.itemId == R.id.action_city) {
                 return@setOnItemSelectedListener true
             }
@@ -69,6 +62,5 @@ class CityActivity : AppCompatActivity() {
             }
             true
         }
-        // --- FI DE LA CORRECCIÓ ---
     }
 }

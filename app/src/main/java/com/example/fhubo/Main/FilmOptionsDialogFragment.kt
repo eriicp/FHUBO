@@ -16,14 +16,12 @@ class FilmOptionsDialogFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Usaremos el layout que creamos anteriormente para el pop-up
         return inflater.inflate(R.layout.activity_popup_help1, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Asignamos listeners a las opciones del menú
         view.findViewById<TextView>(R.id.tv_edit).setOnClickListener {
             Toast.makeText(context, "Editar (próximamente)", Toast.LENGTH_SHORT).show()
             dismiss()

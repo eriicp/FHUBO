@@ -13,7 +13,7 @@ class Popup5 : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_popup5)
         val btnBack = findViewById<MaterialButton>(R.id.btn_back)
-        val btnFinish = findViewById<MaterialButton>(R.id.btn_finish) // Asumiendo que el botón final tiene este ID
+        val btnFinish = findViewById<MaterialButton>(R.id.btn_finish)
 
         btnFinish.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -21,7 +21,6 @@ class Popup5 : AppCompatActivity() {
             finish()
         }
         btnBack.setOnClickListener {
-            // Vuelve al popup anterior (Popup4)
             val intent = Intent(this, Popup4::class.java)
             startActivity(intent)
             finish()

@@ -22,14 +22,12 @@ class Popup3 : AppCompatActivity() {
         }
 
         btnBack.setOnClickListener {
-            // Vuelve al popup anterior (Popup2)
             val intent = Intent(this, Popup2::class.java)
             startActivity(intent)
             finish()
         }
 
         btnNext.setOnClickListener {
-            // Avanza al siguiente popup (Popup4)
             val intent = Intent(this, Popup4::class.java)
             startActivity(intent)
             finish()

@@ -17,7 +17,6 @@ import com.example.fhubo.Main.MainActivity
 
 class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        // 1. Instalar la Splash Screen y guardar la instancia
         val splashScreen = installSplashScreen()
 
         super.onCreate(savedInstanceState)
@@ -29,9 +28,7 @@ class Login : AppCompatActivity() {
             insets
         }
 
-        // 2. Añadimos la animación de salida (fade-out)
         splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
-            // Creamos un fade-out para la vista entera de la splash screen
             val fadeOut = ObjectAnimator.ofFloat(
                 splashScreenViewProvider.view,
                 View.ALPHA,
@@ -39,19 +36,15 @@ class Login : AppCompatActivity() {
                 0f
             )
             fadeOut.interpolator = DecelerateInterpolator()
-            fadeOut.duration = 500L // Duración de 0.5 segundos
+            fadeOut.duration = 500L
 
-            // Le decimos que elimine la vista de la splash screen cuando la animación termine
             fadeOut.doOnEnd {
                 splashScreenViewProvider.remove()
             }
 
-            // Iniciamos la animación
             fadeOut.start()
         }
 
-
-        // --- El resto de tu código permanece igual ---
         val loginButton = findViewById<Button>(R.id.btnLogin)
         val registerButton = findViewById<TextView>(R.id.tvRegister)
         val skipLoginButton = findViewById<TextView>(R.id.tvNoLogin)

@@ -27,16 +27,14 @@ object DataSource {
         )
     )
 
-    // Lista de películas con categorías y AÑO
     val films : List<Main> = listOf(
         Main("Star Wars", R.drawable.film_starwars, "Pel·lícules", 1977),
         Main("Hunger Games" , R.drawable.film_hungergames, "Pel·lícules", 2012),
         Main("El Código Da Vinci", R.drawable.film_codigodavinci, "Llibres", 2003),
         Main("Harry Potter", R.drawable.film_harrypotter, "Llibres", 1997),
-        Main("Dune", R.drawable.film_starwars, "Música", 2021) // Ejemplo para categoría Música
+        Main("Dune", R.drawable.film_starwars, "Música", 2021)
     )
 
-    // Lista de favoritos corregida
     val favorites : List<Favorites> = listOf(
         Favorites("Les espaces d'abraxas", R.drawable.location_hungergames_les_espaces_dabraxas),
         Favorites("Museo del Louvre", R.drawable.location_codigodavinci_louvre),

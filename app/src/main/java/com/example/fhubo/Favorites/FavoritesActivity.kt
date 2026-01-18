@@ -20,9 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class FavoritesActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-
     private lateinit var adapter: FavoritesAdapter
-
     private lateinit var bottomMenu: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,14 +47,9 @@ class FavoritesActivity : AppCompatActivity() {
 
         bottomMenu = findViewById(R.id.bottom_navigation)
 
-        // --- INICI DE LA CORRECCIÓ ---
-
-        // 1. Indiquem quin botó del menú ha d'aparèixer com a seleccionat
         bottomMenu.selectedItemId = R.id.action_favorite
 
-        // 2. Configurem el listener per a la navegació
         bottomMenu.setOnItemSelectedListener { item ->
-            // Si l'usuari prem el botó de la pantalla on ja es troba, no fem res
             if (item.itemId == R.id.action_favorite) {
                 return@setOnItemSelectedListener true
             }
@@ -73,6 +66,5 @@ class FavoritesActivity : AppCompatActivity() {
             }
             true
         }
-        // --- FI DE LA CORRECCIÓ ---
     }
 }

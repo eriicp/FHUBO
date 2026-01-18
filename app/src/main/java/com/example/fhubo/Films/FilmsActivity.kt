@@ -38,23 +38,15 @@ class FilmsActivity : AppCompatActivity() {
         adapter = FilmsAdapter(
             items = films,
             onItemClick = { item ->
-                // Lógica para el clic en un elemento
             }
         )
         recyclerView.adapter = adapter
 
         bottomMenu = findViewById(R.id.bottom_navigation)
 
-        // --- INICI DE LA CORRECCIÓ ---
-
-        // 1. Indiquem que el botó de "Pel·lícula" ha d'aparèixer com a seleccionat
         bottomMenu.selectedItemId = R.id.action_film
 
-        // 2. Configurem el listener per a la navegació
         bottomMenu.setOnItemSelectedListener { item ->
-            // En ser una pantalla de detall, si l'usuari prem "Pel·lícula",
-            // el portem a la pantalla principal de pel·lícules.
-
             val selectedActivity : Intent? = when (item.itemId) {
                 R.id.action_film -> Intent(this, MainActivity::class.java)
                 R.id.action_city -> Intent(this, CityActivity::class.java)
@@ -64,7 +56,6 @@ class FilmsActivity : AppCompatActivity() {
             }
 
             selectedActivity?.let {
-                // Si tornem a la MainActivity, netegem la pila d'activitats per sobre
                 if (it.component?.className == MainActivity::class.java.name) {
                     it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 }
@@ -72,6 +63,5 @@ class FilmsActivity : AppCompatActivity() {
             }
             true
         }
-        // --- FI DE LA CORRECCIÓ ---
     }
 }

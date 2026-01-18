@@ -21,7 +21,6 @@ class Settings : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        // --- INICIALIZACIÓN DE VISTAS ---
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar_language)
         val llUser = findViewById<LinearLayout>(R.id.ll_user)
         val llPremium = findViewById<LinearLayout>(R.id.ll_premium)
@@ -31,10 +30,8 @@ class Settings : AppCompatActivity() {
         val llLogout = findViewById<LinearLayout>(R.id.ll_logout)
         bottomMenu = findViewById(R.id.bottom_navigation)
 
-        // --- ASIGNACIÓN DE ACCIONES (LISTENERS) ---
-
         toolbar.setNavigationOnClickListener {
-            finish() // Vuelve a la actividad anterior
+            finish()
         }
 
         llUser.setOnClickListener {
@@ -63,14 +60,9 @@ class Settings : AppCompatActivity() {
             Toast.makeText(this, "Sección de Ayuda próximamente", Toast.LENGTH_SHORT).show()
         }
 
-        // --- INICI DE LA CORRECCIÓ ---
-
-        // 1. Indiquem que el botó de "Perfil" ha d'aparèixer com a seleccionat
         bottomMenu.selectedItemId = R.id.action_profile
 
-        // 2. Configurem la navegació del menú inferior
         bottomMenu.setOnItemSelectedListener { item ->
-            // Si l'usuari prem el botó on ja es troba, no fem res
             if (item.itemId == R.id.action_profile) {
                 return@setOnItemSelectedListener true
             }
@@ -87,6 +79,5 @@ class Settings : AppCompatActivity() {
             }
             true
         }
-        // --- FI DE LA CORRECCIÓ ---
     }
 }

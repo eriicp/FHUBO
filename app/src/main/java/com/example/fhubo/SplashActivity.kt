@@ -17,20 +17,16 @@ class SplashActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_splash)
 
-        // --- CÓDIGO DE LA ANIMACIÓN Y NAVEGACIÓN ---
         val logo = findViewById<ImageView>(R.id.iv_logo)
 
-        // 1. Preparamos la animación: hacemos el logo invisible al principio
         logo.alpha = 0f
 
-        // 2. Creamos la animación de fundido (fade in)
         logo.animate().apply {
-            alpha(1f) // Lo hacemos totalmente opaco
-            duration = 1500 // La animación durará 1.5 segundos
+            alpha(1f)
+            duration = 1500
             withEndAction {
-                // 3. Cuando la animación termine, esperamos un poco y navegamos
                 lifecycleScope.launch {
-                    delay(500) // Una pequeña pausa de 0.5 segundos
+                    delay(500)
                     val intent = Intent(this@SplashActivity, Login::class.java)
                     startActivity(intent)
                     finish()

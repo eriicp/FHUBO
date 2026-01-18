@@ -19,9 +19,8 @@ class User : AppCompatActivity() {
             insets
         }
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar_settings)
-        // Acción para el botón de retroceso en la barra superior
         toolbar.setOnClickListener {
-            finish() // Cierra la actividad actual y vuelve a la anterior.
+            finish()
         }
     }
 }
