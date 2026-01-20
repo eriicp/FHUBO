@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fhubo.Main.MainActivity
 import com.google.android.material.button.MaterialButton
 
 class Popup4 : AppCompatActivity() {
@@ -16,19 +17,16 @@ class Popup4 : AppCompatActivity() {
         val btn_skip = findViewById<MaterialButton>(R.id.btn_skip)
 
         btn_skip.setOnClickListener {
-            // Vuelve al popup anterior (Popup3)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
         btnBack.setOnClickListener {
-            // Vuelve al popup anterior (Popup3)
             val intent = Intent(this, Popup3::class.java)
             startActivity(intent)
             finish()
         }
 
         btnNext.setOnClickListener {
-            // Avanza al último popup (Popup5)
             val intent = Intent(this, Popup5::class.java)
             startActivity(intent)
             finish()

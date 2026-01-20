@@ -16,12 +16,11 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/ivCityBackground"
+            android:id="@+id/ivFilmLocationBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            tools:src="@drawable/location_starwars_hoth" />
-
+            android:background="@drawable/location_starwars_hoth"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"

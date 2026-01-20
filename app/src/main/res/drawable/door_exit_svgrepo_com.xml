@@ -4,14 +4,6 @@
     android:viewportWidth="64"
     android:viewportHeight="64">
 
-  <!--
-      ¡ESTE ES TU DISEÑO ORIGINAL!
-      He aumentado el strokeWidth para hacerlo más grueso.
-      Puedes cambiar el valor "4" a "5" para hacerlo más grueso
-      o a "3" para hacerlo más fino.
-  -->
-
-  <!-- El marco de la puerta (tu diseño) -->
   <path
       android:strokeWidth="4"
       android:pathData="M40,44l0,12l-32,0l0,-48l32,0l0,12"
@@ -20,7 +12,6 @@
       android:strokeLineCap="round"
       android:strokeLineJoin="round"/>
 
-  <!-- La flecha saliendo (tu diseño) -->
   <path
       android:strokeWidth="4"
       android:pathData="M48,40l8,-8l-8,-8"
@@ -29,7 +20,6 @@
       android:strokeLineCap="round"
       android:strokeLineJoin="round"/>
 
-  <!-- La línea horizontal de la flecha (tu diseño) -->
   <path
       android:strokeWidth="4"
       android:pathData="M28,32L56,32"

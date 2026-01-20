@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".CityLocationsActivity">
+    tools:context=".CityLocation.CityLocationsActivity">
 
 
     <androidx.cardview.widget.CardView
@@ -41,11 +41,6 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-    <!--
-        ESTE ES EL CAMBIO PRINCIPAL.
-        Se reemplaza el FrameLayout estático por un RecyclerView dinámico.
-        El diseño del FrameLayout debe ir en el archivo del item (ej: recyclercitylocation.xml).
-    -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCityLocations"
         android:layout_width="0dp"
@@ -53,7 +48,7 @@
         android:paddingTop="12dp"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/cvCityTitle"
-        app:layout_constraintBottom_toTopOf="@id/cvCityMenu"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/recyclercitylocation" />

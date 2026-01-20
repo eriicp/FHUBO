@@ -4,8 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.fhubo.Main.MainActivity
 import com.google.android.material.button.MaterialButton
 
 class Popup3 : AppCompatActivity() {
@@ -23,14 +22,12 @@ class Popup3 : AppCompatActivity() {
         }
 
         btnBack.setOnClickListener {
-            // Vuelve al popup anterior (Popup2)
             val intent = Intent(this, Popup2::class.java)
             startActivity(intent)
             finish()
         }
 
         btnNext.setOnClickListener {
-            // Avanza al siguiente popup (Popup4)
             val intent = Intent(this, Popup4::class.java)
             startActivity(intent)
             finish()

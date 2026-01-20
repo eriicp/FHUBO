@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".MainActivity">
+    tools:context=".Main.MainActivity">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -25,84 +25,85 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/help_alt_svgrepo_com"
         android:background="@color/design_default_color_background"
+        android:src="@drawable/help_alt_svgrepo_com"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/InkBlack" />
 
 
-    <SearchView
-        android:id="@+id/svMain"
+    <LinearLayout
+        android:id="@+id/search_container"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/sv_rounded"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/svMain"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
-
+        <!-- Icono de la Lupa (Corregido) -->
         <ImageView
-
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/ivFilmName"
-            android:layout_width="130dp"
-            android:layout_height="200dp"
-            android:src="@drawable/film_starwars"
-            android:layout_marginEnd="50dp"
-            />
-
-        <ImageView
-            android:id="@+id/tresPuntos"
-            android:layout_width="13dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="105dp"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/three_point_leader_2_svgrepo_com"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/search_alt_1_svgrepo_com"
             app:tint="@color/white" />
 
-    </FrameLayout>
+        <!-- Tu SearchView, ahora sin fondo propio y ocupando el espacio disponible -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/svMain"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="Buscar película..."
+            app:searchIcon="@null" />
 
+        <!-- El botón del filtro, alineado a la derecha -->
+        <ImageButton
+            android:id="@+id/btnFilter"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/filter_svgrepo_com"
+            app:tint="@color/white" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
+        android:id="@+id/rvFilms"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/svMain"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        tools:listitem="@layout/recyclerfilm"
-        />
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_container"
+        tools:listitem="@layout/recyclerfilm" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/granate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:menu="@menu/bottom_menu"
-        app:itemIconTint="@color/white"
         app:itemIconSize="40dp"
+        app:itemIconTint="@color/white"
         app:labelVisibilityMode="unlabeled"
-
-        />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
