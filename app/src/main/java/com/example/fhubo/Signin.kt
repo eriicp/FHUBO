@@ -5,11 +5,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.fhubo.Main.MainActivity
 
 class Signin : AppCompatActivity() {
@@ -19,11 +18,7 @@ class Signin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_signin)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
         val signinButton = findViewById<Button>(R.id.btnRegister)
         val skipLoginButton = findViewById<TextView>(R.id.tvNoLogin)
         val loginButton = findViewById<TextView>(R.id.tvGoToLogin)
@@ -37,8 +32,28 @@ class Signin : AppCompatActivity() {
         signinButton.setOnClickListener {
             val t1 = nomUsuariEditText.text.toString()
             val t2 = passwordEditText.text.toString()
+            val t3 = confirmPasswordEditText.text.toString()
+            val t4 = emailEditText.text.toString()
 
-            viewModel.register(t1, t2)
+
+            val register = viewModel.register(t1, t2, t3, t4)
+
+            if (register == null) {
+                Toast.makeText(
+                    this,
+                    "Usuari registrat: ${viewModel.usersList.get(viewModel.usersList.size - 1).name}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else{
+                Toast.makeText(
+                    this,
+                    "Error: ${register}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
 
             intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
