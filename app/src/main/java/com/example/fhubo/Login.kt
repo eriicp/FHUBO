@@ -49,16 +49,16 @@ class Login : AppCompatActivity() {
         val registerButton = findViewById<TextView>(R.id.tvRegister)
         val skipLoginButton = findViewById<TextView>(R.id.tvNoLogin)
         loginButton.setOnClickListener {
-            intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
         registerButton.setOnClickListener {
-            intent = Intent(this, Signin::class.java)
+            val intent = Intent(this, Signin::class.java)
             startActivity(intent)
             finish()
         }
         skipLoginButton.setOnClickListener {
-            intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
