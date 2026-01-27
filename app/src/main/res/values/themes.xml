@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.FHUBO" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/InkBlack</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_inset</item>
+        <item name="postSplashScreenTheme">@style/Theme.FHUBO</item>
+    </style>
+
+    <style name="SettingsIconStyle">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="Theme.FHUBO" parent="Base.Theme.FHUBO" />
+</resources>
