@@ -1,66 +1,63 @@
 package com.example.fhubo
 
-import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.animation.DecelerateInterpolator
-import android.widget.Button
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.fhubo.Main.MainActivity
+import com.example.fhubo.databinding.ActivityLoginBinding
 
 class Login : AppCompatActivity() {
+
+    private lateinit var binding: ActivityLoginBinding
+    private val viewModel: LoginViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+        installSplashScreen()
+        setTheme(R.style.Theme_FHUBO)
 
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.btnLogin.setOnClickListener {
+            handleLogin()
         }
 
-        splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
-            val fadeOut = ObjectAnimator.ofFloat(
-                splashScreenViewProvider.view,
-                View.ALPHA,
-                1f,
-                0f
-            )
-            fadeOut.interpolator = DecelerateInterpolator()
-            fadeOut.duration = 500L
-
-            fadeOut.doOnEnd {
-                splashScreenViewProvider.remove()
-            }
-
-            fadeOut.start()
-        }
-
-        val loginButton = findViewById<Button>(R.id.btnLogin)
-        val registerButton = findViewById<TextView>(R.id.tvRegister)
-        val skipLoginButton = findViewById<TextView>(R.id.tvNoLogin)
-        loginButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-        registerButton.setOnClickListener {
+        binding.tvRegister.setOnClickListener {
             val intent = Intent(this, Signin::class.java)
             startActivity(intent)
-            finish()
         }
-        skipLoginButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+    }
+
+    private fun handleLogin() {
+        val email = binding.tietEmail.text.toString()
+        val password = binding.tietPassword.text.toString()
+
+        val emailError = viewModel.checkEmail(email)
+        if (emailError != null) {
+            binding.tilEmail.error = emailError
+            return
+        } else {
+            binding.tilEmail.error = null
         }
 
+        val isLoginSuccessful = viewModel.authenticate(email, password)
+
+        if (isLoginSuccessful) {
+            Toast.makeText(this, "Benvingut/da de nou!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        } else {
+            Toast.makeText(this, "El correu o la contrasenya són incorrectes", Toast.LENGTH_LONG).show()
+        }
     }
 }

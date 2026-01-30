@@ -17,7 +17,6 @@ class RegisterViewModel : ViewModel(){
     val email : LiveData<String> = _email
 
 
-    val usersList: MutableList<User> = mutableListOf()
 
     fun register(name: String, pass:String, passConfirm:String, email:String): String? {
         _password.value = pass
@@ -32,9 +31,9 @@ class RegisterViewModel : ViewModel(){
         }
         else{
             val user = User(_nameuser.value,_password.value,_email.value)
-            usersList.add(user)
+            Usuarios.addUser(user)
         }
-        return passwordError
+        return null
     }
 
     fun checkPassword(pass: String,passConfirm: String): String? {
