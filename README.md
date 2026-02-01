@@ -6,102 +6,162 @@ Aquest document descriu les característiques principals i les decisions tècniq
 
 ## Índex
 
-1. [Pantalla Inicial Personalitzada (Splash Screen)](#1-pantalla-inicial-personalitzada-splash-screen)  
-2. [Menú de Navegació i Barres d'Eines Personalitzades](#2-menú-de-navegació-i-barres-deines-personalitzades)  
-3. [Llistes Dinàmiques Personalitzades](#3-llistes-dinàmiques-personalitzades)  
-4. [Filtre Complex (Múltiples Criteris)](#4-filtre-complex-múltiples-criteris)
+* [07. Menú - Llista - Filtre](#07-menú---llista---filtre)
+* [07.1 ViewModel](#071-viewmodel)
+
 
 ---
 
-## 1. Pantalla Inicial Personalitzada (Splash Screen)
+## 07. Menú - Llista - Filtre
+
+### 1. Pantalla Inicial Personalitzada (Splash Screen)
 
 L'objectiu era crear una pantalla de benvinguda atractiva, personalitzada amb el logotip de l'app i amb una animació fluida.
 
-### Solució Implementada
+#### Solució Implementada
 
-#### 1. API Moderna de Splash Screen
-En lloc de fer servir una `Activity` manualment, hem implementat l'API oficial **SplashScreen** d'Android. Aquesta és la pràctica recomanada per Google, ja que:
-- Gestiona automàticament la transició entre la pantalla de benvinguda i la primera pantalla de l'app.
-- Evita pantalles en blanc.
-- Millora el temps d'arrencada.
+**API Moderna de Splash Screen**
+S'ha implementat l'API oficial **SplashScreen** d'Android, que permet:
 
-#### 2. Personalització del Logotip
-La Splash Screen utilitza un fons personalitzat amb el logotip de l'aplicació centrat i una paleta de colors coherent amb la identitat visual de **FHUBO**, garantint una presentació neta i professional.
+* Una transició automàtica entre la pantalla inicial i la primera pantalla funcional.
+* Evitar pantalles en blanc durant la càrrega.
+* Millorar el temps d'arrencada de l'aplicació.
 
-#### 3. Animació
-La pantalla inicial compta amb dues animacions que treballen conjuntament:
-- **Animació d'entrada**: gestionada automàticament per l'API de SplashScreen.
-- **Animació de sortida**: a la `LoginActivity` hem afegit un `OnExitAnimationListener` que executa una animació de *fade-out* de 0,5 segons, aconseguint una transició suau i elegant cap a la pantalla de login.
+**Personalització del Logotip**
+La Splash Screen utilitza un fons personalitzat amb el logotip centrat i una paleta de colors coherent amb la identitat visual de **FHUBO**.
 
----
+**Animació**
+S'han combinat dues animacions:
 
-## 2. Menú de Navegació i Barres d'Eines Personalitzades
-
-Es demanava un sistema de navegació funcional i personalitzat, demostrant el domini de les barres de navegació (`BottomNavigationView`) o de les barres d'eines (`Toolbar` / `AppBar`).
-
-### Solució Implementada
-
-#### 1. Menú de Navegació Personalitzat (BottomNavigationView)
-- El menú inferior és el pilar de la navegació de l'app.
-- S'ha personalitzat:
-  - Color de fons (`@color/granate`).
-  - Color dels icones (`@color/white`).
-  - Mida dels icones augmentada per a més claredat visual.
-  - Eliminació de les etiquetes de text per aconseguir un disseny més net i minimalista.
-
-#### 2. Barres d'Eines Personalitzades (Toolbar i CardView)
-- **Toolbars estàndard**:  
-  En pantalles secundàries com *Settings* o *Language*, hem utilitzat `MaterialToolbar` per mostrar un títol i un botó de *tornar enrere*, mantenint una coherència visual amb la resta de l'aplicació.
-- **Toolbars avançades**:  
-  A les pantalles `FilmsActivity` i `CityLocationsActivity` hem creat barres de títol totalment personalitzades utilitzant un `CardView`.  
-  Aquest component inclou el títol i el botó de navegació enrere, permetent un control total sobre el disseny (colors, tipografia i alineació) i demostrant un nivell avançat de personalització de la interfície.
+* Animació d'entrada gestionada per l'API.
+* Animació de sortida (*fade-out* de 0,5 segons) implementada a la `LoginActivity` mitjançant un `OnExitAnimationListener`.
 
 ---
 
-## 3. Llistes Dinàmiques Personalitzades
+### 2. Menú de Navegació i Barres d'Eines Personalitzades
 
-El requisit era implementar diverses llistes dinàmiques, cadascuna amb un disseny propi i elements clicables.
+Es va implementar un sistema de navegació funcional i personalitzat.
 
-### Solució Implementada
+#### Solució Implementada
 
-Hem utilitzat **RecyclerView** de manera extensiva a tota l'aplicació, ja que és la forma més eficient de mostrar grans quantitats de dades.
+**Menú de Navegació (BottomNavigationView)**
 
-- **Diverses llistes dinàmiques**:
-  - `MainActivity`: mostra les pel·lícules en una graella (`GridLayoutManager`).
-  - `CityActivity`: mostra les ciutats en una llista vertical.
-  - Pantalles de detall (`FilmsActivity`, `CityLocationsActivity`): mostren les localitzacions.
-  - `FavoritesActivity`: mostra els elements preferits de l'usuari.
-- **Disseny personalitzat**:
-  - Cada llista disposa del seu propi fitxer XML de cel·la (ex.: `recyclerfilm.xml`, `recyclercity.xml`).
-  - S'ha utilitzat `CardView` per afegir ombres, cantonades arrodonides i superposicions de text sobre imatges.
-- **Interactivitat**:
-  - Tots els elements són clicables.
-  - Cada `Adapter` rep una funció `onItemClick`, que permet navegar cap a la pantalla de detall corresponent quan l'usuari selecciona un element.
+* Color de fons personalitzat.
+* Icones en color blanc i de mida augmentada.
+* Eliminació de les etiquetes de text per a un disseny més net.
+
+**Barres d'Eines Personalitzades**
+
+* `MaterialToolbar` en pantalles secundàries (*Settings*, *Language*).
+* Barres de títol avançades amb `CardView` a `FilmsActivity` i `CityLocationsActivity`, permetent un control total del disseny visual.
 
 ---
 
-## 4. Filtre Complex (Múltiples Criteris)
+### 3. Llistes Dinàmiques Personalitzades
 
-Es demanava un filtre que combinés més d'un criteri per refinar els resultats d'una llista.
+S'han implementat diverses llistes dinàmiques utilitzant **RecyclerView**.
 
-### Solució Implementada
+* **Pantalles amb llistes**:
 
-El filtre de la pantalla principal (`MainActivity`) és una de les funcionalitats més avançades de l'aplicació. Combina **tres criteris simultanis**:
+  * `MainActivity`: graella de pel·lícules.
+  * `CityActivity`: llista vertical de ciutats.
+  * Pantalles de detall i preferits.
+* **Disseny personalitzat**:
 
-1. **Filtre per categoria**  
-   - L'usuari pot seleccionar una categoria (Totes, Pel·lícules, Llibres, Música).
-   - La selecció es desa a la variable `currentCategory`.
+  * Cel·les XML específiques per a cada llista.
+  * Ús de `CardView` per millorar l'aspecte visual.
+* **Interactivitat**:
 
-2. **Filtre per text**  
-   - Cerca dinàmica mitjançant una barra de cerca (`SearchView`).
+  * Elements clicables amb navegació a pantalles de detall mitjançant `onItemClick`.
 
-3. **Ordenació per any**  
-   - Possibilitat d'ordenar per any d'estrena, tant ascendent com descendent.
-   - El criteri seleccionat es guarda a la variable `currentSortOrder`.
+---
 
-La funció `performSearch` aplica els criteris en l'ordre següent:
-1. Filtrat per categoria.
-2. Filtrat per text sobre el resultat anterior.
-3. Ordenació final segons l'any.
+### 4. Filtre Complex (Múltiples Criteris)
 
-Aquest sistema ofereix un filtratge potent i flexible que compleix plenament el requisit de **filtre complex amb múltiples criteris**.
+El filtre principal combina tres criteris simultanis:
+
+1. **Categoria**: Totes, Pel·lícules, Llibres o Música.
+2. **Cerca per text**: mitjançant `SearchView`.
+3. **Ordenació per any**: ascendent o descendent.
+
+La funció `performSearch` aplica els filtres de manera seqüencial:
+
+1. Categoria.
+2. Text.
+3. Ordenació final.
+
+Aquesta implementació compleix el requisit de **filtre complex amb múltiples criteris**.
+
+---
+
+## 07.1 ViewModel
+
+### Descripció General
+
+S'ha aplicat el patró d'arquitectura **MVVM** mitjançant la creació de classes **ViewModel**, que actuen com a controladors lògics. Aquesta separació garanteix:
+
+* Desacoblament total entre UI i lògica de negoci.
+* Persistència de dades davant canvis de configuració (rotació de pantalla).
+* Facilitat per al testeig unitari.
+
+---
+
+### RegisterViewModel
+
+Gestiona la lògica de negoci de la pantalla de registre (*Signin*), validant les dades abans de crear un usuari.
+
+**Estructura de Dades (LiveData)**
+
+S'utilitza l'encapsulament `MutableLiveData` (privat) i `LiveData` (públic):
+
+```kotlin
+private val _nameuser = MutableLiveData<String>()
+private val _password = MutableLiveData<String>()
+
+val nameuser: LiveData<String> = _nameuser
+val password: LiveData<String> = _password
+```
+
+**Lògica de Validació (checkPassword)**
+
+El mètode retorna un `String?` amb el missatge d'error o `null` si la validació és correcta.
+
+Regles implementades:
+
+* Longitud mínima de 8 caràcters.
+* Almenys un dígit.
+* Combinació de majúscules i minúscules.
+* Almenys un caràcter especial (`!`, `+`, `^`).
+* Coincidència entre contrasenya i confirmació.
+
+---
+
+### LoginViewModel
+
+Gestiona l'autenticació de l'usuari (*Login*).
+
+**Validació de Correu (checkEmail)**
+
+Utilitza `android.util.Patterns.EMAIL_ADDRESS` per validar el format del correu electrònic:
+
+```kotlin
+fun checkEmail(email: String): String? {
+    if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        return "El formato del correo no es válido"
+    }
+    return null
+}
+```
+
+**Autenticació (authenticate)**
+
+Mètode booleà que comprova condicions bàsiques d'accés (actualment, que la contrasenya no estigui buida).
+
+---
+
+### Beneficis de la Implementació
+
+* **Desacoblament**: les `Activity` només observen canvis i reaccionen.
+* **Gestió centralitzada d'errors**: missatges definits exclusivament al ViewModel.
+* **Observabilitat**: ús de `LiveData` per a una UI reactiva i preparada per escalar.
+
