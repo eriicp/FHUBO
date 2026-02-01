@@ -28,10 +28,8 @@ class RegisterViewModel : ViewModel(){
 
         if (passwordError != null){
             return passwordError
-        }
-        else{
-            val user = User(_nameuser.value,_password.value,_email.value)
-            Usuarios.addUser(user)
+        } else {
+            // Lògica de 'Usuarios.addUser(user)' eliminada, com s'ha demanat.
         }
         return null
     }

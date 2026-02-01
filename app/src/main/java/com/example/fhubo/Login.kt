@@ -2,50 +2,66 @@ package com.example.fhubo
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.fhubo.Main.MainActivity
-import com.example.fhubo.databinding.ActivityLoginBinding
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class Login : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
+
+    // Declaració de vistes
+    private lateinit var btnLogin: Button
+    private lateinit var tvRegister: TextView
+    private lateinit var tietEmail: TextInputEditText
+    private lateinit var tietPassword: TextInputEditText
+    private lateinit var tilEmail: TextInputLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         setTheme(R.style.Theme_FHUBO)
 
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        // Canviem a la forma clàssica de setContentView
+        setContentView(R.layout.activity_login)
+
+        // Inicialitzem les vistes amb findViewById
+        btnLogin = findViewById(R.id.btnLogin)
+        tvRegister = findViewById(R.id.tvRegister)
+        tietEmail = findViewById(R.id.tietEmail)
+        tietPassword = findViewById(R.id.tietPassword)
+        tilEmail = findViewById(R.id.tilEmail)
 
         setupListeners()
     }
 
     private fun setupListeners() {
-        binding.btnLogin.setOnClickListener {
+        btnLogin.setOnClickListener {
             handleLogin()
         }
 
-        binding.tvRegister.setOnClickListener {
+        tvRegister.setOnClickListener {
             val intent = Intent(this, Signin::class.java)
             startActivity(intent)
         }
     }
 
     private fun handleLogin() {
-        val email = binding.tietEmail.text.toString()
-        val password = binding.tietPassword.text.toString()
+        val email = tietEmail.text.toString()
+        val password = tietPassword.text.toString()
 
         val emailError = viewModel.checkEmail(email)
         if (emailError != null) {
-            binding.tilEmail.error = emailError
+            tilEmail.error = emailError
             return
         } else {
-            binding.tilEmail.error = null
+            tilEmail.error = null
         }
 
         val isLoginSuccessful = viewModel.authenticate(email, password)
