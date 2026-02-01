@@ -17,19 +17,32 @@ class RegisterViewModel : ViewModel(){
     val email : LiveData<String> = _email
 
 
-
+    fun checkEmail(email: String): String? {
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            return "El format del correu no és vàlid"
+        }
+        return null
+    }
     fun register(name: String, pass:String, passConfirm:String, email:String): String? {
         _password.value = pass
         _nameuser.value = name
         _passwordConfirm.value = passConfirm
         _email.value = email
 
-        val passwordError = checkPassword(pass,passConfirm)
+        if (name.isBlank()) {
+            return "El nom d'usuari no pot estar buit"
+        }
 
+        val emailError = checkEmail(email)
+        if (emailError != null) {
+            return emailError
+        }
+
+        val passwordError = checkPassword(pass,passConfirm)
         if (passwordError != null){
             return passwordError
-        } else {
         }
+
         return null
     }
 

@@ -87,7 +87,6 @@ class Signin : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else {
-            // Mostra l'error específic al camp corresponent
             when {
                 "nom d'usuari" in errorMessage -> tilUsername.error = errorMessage
                 "correu" in errorMessage -> tilEmail.error = errorMessage
