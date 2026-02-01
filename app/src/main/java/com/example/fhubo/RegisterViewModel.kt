@@ -29,7 +29,6 @@ class RegisterViewModel : ViewModel(){
         if (passwordError != null){
             return passwordError
         } else {
-            // Lògica de 'Usuarios.addUser(user)' eliminada, com s'ha demanat.
         }
         return null
     }
