@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "975940504223",
+    "project_id": "fhubo-a44a8",
+    "storage_bucket": "fhubo-a44a8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975940504223:android:c9d08658c3e08d8fcef0aa",
+        "android_client_info": {
+          "package_name": "com.example.fhubo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjPtCDGIwbILJ2lQ9unG5IR1y2bnI4gZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         const val SORT_YEAR_ASC = "year_asc"
     }
 
+    suspend fun fetchFilms(): List<Main> {
+        val response = ItemAPI.API().llistaFilms()
+        return response.body() ?: emptyList()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+S'ha obert la conversa. Conté un missatge no llegit.
+
+    Salta al contingut
+    Utilitza Correu de Institut TIC de Barcelona amb lectors de pantalla
+    Activa les notificacions d'escriptori per a Correu de Institut TIC de Barcelona.
+    D'acord  No, gràcies
+
+    1 de 981
+    (sense assumpte)
+    Safata d'entrada
+
+    Itzan Jimenez
+    19:45 (fa 0 minuts)
+    per a mi
+
+    Sembla que aquest missatge està en anglès
+    <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -91,6 +107,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_container"
         tools:listitem="@layout/recyclerfilm" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/boton_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/granate"
+        app:cardCornerRadius="90dp"
+        android:foregroundGravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        >
+        <ImageButton
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/granate"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_add_24"
+            app:tint="@color/white" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

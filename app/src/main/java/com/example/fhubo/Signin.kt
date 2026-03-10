@@ -46,11 +46,18 @@ class Signin : AppCompatActivity() {
         tilConfirmPassword = findViewById(R.id.tilConfirmPassword)
 
         setupListeners()
+        setupObservers() // Configuramos los observadores del ViewModel
     }
 
     private fun setupListeners() {
         btnRegister.setOnClickListener {
-            handleRegistration()
+            val name = tietUsername.text.toString()
+            val email = tietEmail.text.toString()
+            val password = tietPassword.text.toString()
+            val confirmPassword = tietConfirmPassword.text.toString()
+
+            // Pasamos la responsabilidad al ViewModel
+            viewModel.register(name, password, confirmPassword, email)
         }
 
         tvNoLogin.setOnClickListener {
@@ -66,33 +73,33 @@ class Signin : AppCompatActivity() {
         }
     }
 
-    private fun handleRegistration() {
-        val name = tietUsername.text.toString()
-        val email = tietEmail.text.toString()
-        val password = tietPassword.text.toString()
-        val confirmPassword = tietConfirmPassword.text.toString()
+    private fun setupObservers() {
+        // Observamos cada posible error y lo inyectamos en su vista correspondiente
+        viewModel.usernameError.observe(this) { error ->
+            tilUsername.error = error
+        }
 
-        // Neteja d'errors anteriors
-        tilUsername.error = null
-        tilEmail.error = null
-        tilPassword.error = null
-        tilConfirmPassword.error = null
+        viewModel.emailError.observe(this) { error ->
+            tilEmail.error = error
+        }
 
-        val errorMessage = viewModel.register(name, password, confirmPassword, email)
+        viewModel.passwordError.observe(this) { error ->
+            tilPassword.error = error
+        }
 
-        if (errorMessage == null) {
-            Toast.makeText(this, "Usuari '$name' registrat correctament!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
-        } else {
-            when {
-                "nom d'usuari" in errorMessage -> tilUsername.error = errorMessage
-                "correu" in errorMessage -> tilEmail.error = errorMessage
-                "contrasenya" in errorMessage -> tilPassword.error = errorMessage
-                "coincideixen" in errorMessage -> tilConfirmPassword.error = errorMessage
-                else -> Toast.makeText(this, "Error: $errorMessage", Toast.LENGTH_LONG).show()
+        viewModel.confirmPasswordError.observe(this) { error ->
+            tilConfirmPassword.error = error
+        }
+
+        // Observamos el éxito del registro
+        viewModel.registerSuccess.observe(this) { success ->
+            if (success) {
+                val name = tietUsername.text.toString()
+                Toast.makeText(this, "Usuari '$name' registrat correctament!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
             }
         }
     }

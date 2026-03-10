@@ -1,57 +1,76 @@
 package com.example.fhubo
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class RegisterViewModel : ViewModel(){
-    private val _nameuser = MutableLiveData<String>()
-    private val _password = MutableLiveData<String>()
-    private val _passwordConfirm = MutableLiveData<String>()
-    private val _email = MutableLiveData<String>()
+class RegisterViewModel : ViewModel() {
 
+    // Variables observables separadas para cada campo de la UI
+    private val _usernameError = MutableLiveData<String?>()
+    val usernameError: LiveData<String?> = _usernameError
 
-    val nameuser : LiveData<String> = _nameuser
-    val password : LiveData<String> = _password
-    val passwordConfirm : LiveData<String> = _passwordConfirm
-    val email : LiveData<String> = _email
+    private val _emailError = MutableLiveData<String?>()
+    val emailError: LiveData<String?> = _emailError
 
+    private val _passwordError = MutableLiveData<String?>()
+    val passwordError: LiveData<String?> = _passwordError
 
-    fun checkEmail(email: String): String? {
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            return "El format del correu no és vàlid"
-        }
-        return null
-    }
-    fun register(name: String, pass:String, passConfirm:String, email:String): String? {
-        _password.value = pass
-        _nameuser.value = name
-        _passwordConfirm.value = passConfirm
-        _email.value = email
+    private val _confirmPasswordError = MutableLiveData<String?>()
+    val confirmPasswordError: LiveData<String?> = _confirmPasswordError
 
+    private val _registerSuccess = MutableLiveData<Boolean>()
+    val registerSuccess: LiveData<Boolean> = _registerSuccess
+
+    // Función principal para registrar
+    fun register(name: String, pass: String, passConfirm: String, email: String) {
+        var hasError = false
+
+        // 1. Validar nom
         if (name.isBlank()) {
-            return "El nom d'usuari no pot estar buit"
+            _usernameError.value = "El nom d'usuari no pot estar buit"
+            hasError = true
+        } else {
+            _usernameError.value = null
         }
 
-        val emailError = checkEmail(email)
-        if (emailError != null) {
-            return emailError
+        // 2. Validar email
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            _emailError.value = "El format del correu no és vàlid"
+            hasError = true
+        } else {
+            _emailError.value = null
         }
 
-        val passwordError = checkPassword(pass,passConfirm)
-        if (passwordError != null){
-            return passwordError
+        // 3. Validar contrasenya
+        if (pass.length < 8) {
+            _passwordError.value = "La contrasenya te menys de 8 caracters"
+            hasError = true
+        } else if (pass.count(Char::isDigit) <= 0) {
+            _passwordError.value = "La contrasenya ha de contenir un digit"
+            hasError = true
+        } else if (!(pass.any(Char::isLowerCase) && pass.any(Char::isUpperCase))) {
+            _passwordError.value = "La contrasenya ha de contindre una minuscula i una majuscula"
+            hasError = true
+        } else if (!(pass.any { it in "!,+^" })) {
+            _passwordError.value = "La contrasenya ha de tindre un careacter especial"
+            hasError = true
+        } else {
+            _passwordError.value = null
         }
 
-        return null
-    }
+        // 4. Validar confirmació de contrasenya
+        if (pass != passConfirm) {
+            _confirmPasswordError.value = "Les contrasenyes no coincideixen"
+            hasError = true
+        } else {
+            _confirmPasswordError.value = null
+        }
 
-    fun checkPassword(pass: String,passConfirm: String): String? {
-        if (pass.length < 8){ return "La contrasenya te menys de 8 caracters"}
-        if(pass.count(Char::isDigit) <= 0){ return "La contrasenya ha de contenir un digit"}
-        if (!(pass.any(Char::isLowerCase) && pass.any(Char::isUpperCase))){ return "La contrasenya ha de contindre una minuscula i una majuscula"}
-        if (!(pass.any { it in "!,+^" })){ return "La contrasenya ha de tindre un careacter especial"}
-        if (pass != passConfirm){return "Les contrasenyes no coincideixen"}
-        return null
+        // 5. Finalizar
+        if (!hasError) {
+            _registerSuccess.value = true // ¡Todo correcto!
+        }
     }
 }
