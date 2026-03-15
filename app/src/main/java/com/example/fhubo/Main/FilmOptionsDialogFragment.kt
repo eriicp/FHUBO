@@ -11,6 +11,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FilmOptionsDialogFragment : BottomSheetDialogFragment() {
 
+    private var film: Main? = null
+
+    companion object {
+        fun newInstance(film: Main): FilmOptionsDialogFragment {
+            val fragment = FilmOptionsDialogFragment()
+            fragment.film = film
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,23 +33,20 @@ class FilmOptionsDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<TextView>(R.id.tv_edit).setOnClickListener {
-            Toast.makeText(context, "Editar (próximamente)", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Editar: ${film?.name}", Toast.LENGTH_SHORT).show()
             dismiss()
         }
 
         view.findViewById<TextView>(R.id.tv_delete).setOnClickListener {
-            Toast.makeText(context, "Eliminar (próximamente)", Toast.LENGTH_SHORT).show()
+            film?.let { (activity as? MainActivity)?.deleteFilm(it.id) }
             dismiss()
         }
 
         view.findViewById<TextView>(R.id.tv_add_favorite).setOnClickListener {
-            Toast.makeText(context, "Añadido a favoritos (próximamente)", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Afegir a favorits: ${film?.name}", Toast.LENGTH_SHORT).show()
             dismiss()
         }
 
-        view.findViewById<TextView>(R.id.tv_share).setOnClickListener {
-            Toast.makeText(context, "Compartir (próximamente)", Toast.LENGTH_SHORT).show()
-            dismiss()
-        }
+
     }
 }

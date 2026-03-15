@@ -3,32 +3,38 @@ package com.example.fhubo.Main
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fhubo.City.CityActivity
-import com.example.fhubo.CityLocation.CityLocationsActivity
 import com.example.fhubo.DataSource
 import com.example.fhubo.Favorites.FavoritesActivity
-import com.example.fhubo.Films.FilmsActivity
+import com.example.fhubo.PopUpHelp1
 import com.example.fhubo.R
 import com.example.fhubo.Settings.Settings
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private var currentCategory: String = "Totes"
     private var currentSortOrder: String = SORT_NONE
+    private var allFilms: List<Main> = DataSource.films 
 
-    private lateinit var helpButton: ImageView
     private lateinit var btnFilter: ImageButton
+    private lateinit var btnAdd: ImageButton
     private lateinit var svMain: SearchView
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MainAdapter
@@ -40,11 +46,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         const val SORT_YEAR_ASC = "year_asc"
     }
 
-    suspend fun fetchFilms(): List<Main> {
-        val response = ItemAPI.API().llistaFilms()
-        return response.body() ?: emptyList()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,12 +55,16 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         setupRecyclerView()
         setupListeners()
         setupBottomNavigation()
-        performSearch(null)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadFilms()
     }
 
     private fun initViews() {
-        helpButton = findViewById(R.id.ivHelp)
         btnFilter = findViewById(R.id.btnFilter)
+        btnAdd = findViewById(R.id.btnAdd)
         svMain = findViewById(R.id.svMain)
         bottomMenu = findViewById(R.id.bottom_navigation)
         recyclerView = findViewById(R.id.rvFilms)
@@ -74,19 +79,18 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private fun setupRecyclerView() {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         adapter = MainAdapter(
-            items = emptyList(),
+            items = allFilms,
             onItemClick = { film ->
-                val intent = when (film.name) {
-                    "Star Wars" -> Intent(this, FilmsActivity::class.java)
-                    "Hunger Games" -> Intent(this, CityLocationsActivity::class.java)
-                    "El Código Da Vinci" -> Intent(this, CityLocationsActivity::class.java)
-                    "Harry Potter" -> Intent(this, CityLocationsActivity::class.java)
-                    else -> null
-                }
-                intent?.let { startActivity(it) }
+                Toast.makeText(this, "Clicked: ${film.name}", Toast.LENGTH_SHORT).show()
             },
             onThreeDotsClick = { film ->
-                FilmOptionsDialogFragment().show(supportFragmentManager, "FilmOptionsDialog")
+                val intent = Intent(this, PopUpHelp1::class.java)
+                intent.putExtra("FILM_ID", film.id)
+                intent.putExtra("FILM_NAME", film.name)
+                intent.putExtra("FILM_CATEGORY", film.category)
+                intent.putExtra("FILM_YEAR", film.year)
+                intent.putExtra("FILM_IMAGE_PATH", film.imagePath)
+                startActivity(intent)
             }
         )
         recyclerView.adapter = adapter
@@ -95,20 +99,50 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private fun setupListeners() {
         btnFilter.setOnClickListener { showCategoryPopupMenu(it) }
         svMain.setOnQueryTextListener(this)
+        btnAdd.setOnClickListener {
+            val intent = Intent(this, AddFilmActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupBottomNavigation() {
         bottomMenu.selectedItemId = R.id.action_film
         bottomMenu.setOnItemSelectedListener { item ->
-            if (item.itemId == R.id.action_film) return@setOnItemSelectedListener true
-            val intent = when (item.itemId) {
-                R.id.action_city -> Intent(this, CityActivity::class.java)
-                R.id.action_favorite -> Intent(this, FavoritesActivity::class.java)
-                R.id.action_profile -> Intent(this, Settings::class.java)
-                else -> null
+            when (item.itemId) {
+                R.id.action_film -> true
+                R.id.action_city -> {
+                    startActivity(Intent(this, CityActivity::class.java))
+                    true
+                }
+                R.id.action_favorite -> {
+                    startActivity(Intent(this, FavoritesActivity::class.java))
+                    true
+                }
+                R.id.action_profile -> {
+                    startActivity(Intent(this, Settings::class.java))
+                    true
+                }
+                else -> false
             }
-            intent?.let { startActivity(it) }
-            true
+        }
+    }
+
+    private fun loadFilms() {
+        lifecycleScope.launch {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    ItemAPI.API().llistaFilms()
+                }
+                if (response.isSuccessful) {
+                    val apiFilms = response.body()
+                    if (!apiFilms.isNullOrEmpty()) {
+                        allFilms = apiFilms
+                        performSearch(svMain.query.toString())
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("API", "Error: ${e.message}")
+            }
         }
     }
 
@@ -124,16 +158,38 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun showCategoryPopupMenu(view: View) {
         val popup = PopupMenu(this, view)
-        popup.menuInflater.inflate(R.menu.popup_categories, popup.menu)
+        
+        // 1. Obtenim totes les categories úniques que hi ha actualment a la BBDD (allFilms)
+        val uniqueCategories = allFilms.map { it.category }.distinct().sorted()
+
+        // 2. Creem dinàmicament el menú
+        val menu = popup.menu
+        
+        // Afegim l'opció per defecte "Totes"
+        val subMenuCategories = menu.addSubMenu("Categories")
+        subMenuCategories.add(Menu.NONE, Menu.FIRST, Menu.NONE, "Totes")
+        
+        // Afegim les categories que hem trobat a la BBDD
+        uniqueCategories.forEachIndexed { index, category ->
+            subMenuCategories.add(Menu.NONE, Menu.FIRST + index + 1, Menu.NONE, category)
+        }
+
+        // Afegim les opcions d'ordenació
+        val subMenuSort = menu.addSubMenu("Ordenar per")
+        subMenuSort.add(Menu.NONE, 100, Menu.NONE, "Any (nous primer)")
+        subMenuSort.add(Menu.NONE, 101, Menu.NONE, "Any (antics primer)")
 
         popup.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.cat_totes -> currentCategory = "Totes"
-                R.id.cat_peliculas -> currentCategory = "Pel·lícules"
-                R.id.cat_llibres -> currentCategory = "Llibres"
-                R.id.cat_musica -> currentCategory = "Música"
-                R.id.sort_year_desc -> currentSortOrder = SORT_YEAR_DESC
-                R.id.sort_year_asc -> currentSortOrder = SORT_YEAR_ASC
+                100 -> currentSortOrder = SORT_YEAR_DESC
+                101 -> currentSortOrder = SORT_YEAR_ASC
+                Menu.FIRST -> currentCategory = "Totes"
+                else -> {
+                    // Si l'ID està entre FIRST+1 i el final de les categories, és una categoria dinàmica
+                    if (menuItem.itemId > Menu.FIRST && menuItem.itemId <= Menu.FIRST + uniqueCategories.size) {
+                        currentCategory = uniqueCategories[menuItem.itemId - Menu.FIRST - 1]
+                    }
+                }
             }
             performSearch(svMain.query.toString())
             true
@@ -142,18 +198,20 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun performSearch(query: String?) {
-        val allItems = DataSource.films
-
         val categorizedList = if (currentCategory == "Totes") {
-            allItems
+            allFilms
         } else {
-            allItems.filter { it.category.equals(currentCategory, ignoreCase = true) }
+            allFilms.filter { it.category.equals(currentCategory, ignoreCase = true) }
         }
 
         val filteredList = if (query.isNullOrBlank()) {
             categorizedList
         } else {
-            categorizedList.filter { it.name.contains(query, ignoreCase = true) }
+            categorizedList.filter { 
+                it.name.contains(query, ignoreCase = true) || 
+                it.year.toString().contains(query) ||
+                it.category.contains(query, ignoreCase = true)
+            }
         }
 
         val sortedList = when (currentSortOrder) {
@@ -163,5 +221,21 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         }
 
         adapter.updateList(sortedList)
+    }
+
+    fun deleteFilm(id: Long) {
+        lifecycleScope.launch {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    ItemAPI.API().deleteFilm(id)
+                }
+                if (response.isSuccessful) {
+                    Toast.makeText(this@MainActivity, "Eliminada correctament", Toast.LENGTH_SHORT).show()
+                    loadFilms()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@MainActivity, "Error de connexió", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

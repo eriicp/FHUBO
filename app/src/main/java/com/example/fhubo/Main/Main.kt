@@ -1,8 +1,12 @@
 package com.example.fhubo.Main
 
-data class Main (
-    val name : String,
-    val imageResource : Int,
-    val category: String, 
-    val year: Int
+import com.google.gson.annotations.SerializedName
+
+data class Main(
+    @SerializedName("name") val name: String,
+    @SerializedName("imagePath") val imagePath: String,
+    @SerializedName("category") val category: String,
+    @SerializedName("year") val year: Int,
+    @SerializedName("id") val id: Long = 0,
+    @SerializedName("ultimAcces") val ultimAcces: String? = null
 )

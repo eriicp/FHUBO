@@ -57,6 +57,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // (Opcional) Interceptor per poder veure els logs de les peticions (molt útil per a debug)
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    // Glide per carregar imatges
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    
     implementation(platform("com.google.firebase:firebase-bom:34.10.0"))
     implementation("com.google.firebase:firebase-analytics")
     androidTestImplementation(libs.androidx.junit)
