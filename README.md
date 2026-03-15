@@ -8,6 +8,7 @@
 
   * [07. Menú - Llista - Filtre](#07-menú---llista---filtre)
   * [07.1 ViewModel](#071-viewmodel)
+  * [8.0 Apis amb Retrofit](#-Guia-de-Desplegament-Integral:-API-+-MySQL-a-Oracle-Cloud)
 
 
   ---
