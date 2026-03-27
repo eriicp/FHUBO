@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,34 +15,70 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FHUBO"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".EstadistiquesActivity"
+            android:exported="false" />
         <activity
             android:name=".Login"
             android:exported="true"
             android:theme="@style/Theme.App.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Main.MainActivity" android:exported="false" />
-        <activity android:name=".Main.AddFilmActivity" android:exported="false" />
-        <activity android:name=".Main.EditFilmActivity" android:exported="false" />
-        <activity android:name=".Popup5" android:exported="false" />
-        <activity android:name=".Popup4" android:exported="false" />
-        <activity android:name=".Popup3" android:exported="false" />
-        <activity android:name=".Popup2" android:exported="false" />
-        <activity android:name=".Signin" android:exported="false" />
-        <activity android:name=".Films.FilmsActivity" android:exported="false" />
-        <activity android:name=".City.CityActivity" android:exported="false" />
-        <activity android:name=".CityLocation.CityLocationsActivity" android:exported="false" />
-        <activity android:name=".Favorites.FavoritesActivity" android:exported="false" />
-        <activity android:name=".Settings.Settings" android:exported="false" />
-        <activity android:name=".Settings.User" android:exported="false" />
-        <activity android:name=".Settings.Language" android:exported="false" />
-        <activity android:name=".Settings.Notificacions" android:exported="false" />
-        <activity android:name=".PopUpHelp1" android:exported="false" />
-
+        <activity
+            android:name=".Main.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Main.AddFilmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Main.EditFilmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Popup5"
+            android:exported="false" />
+        <activity
+            android:name=".Popup4"
+            android:exported="false" />
+        <activity
+            android:name=".Popup3"
+            android:exported="false" />
+        <activity
+            android:name=".Popup2"
+            android:exported="false" />
+        <activity
+            android:name=".Signin"
+            android:exported="false" />
+        <activity
+            android:name=".Films.FilmsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".City.CityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CityLocation.CityLocationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Favorites.FavoritesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Settings.Settings"
+            android:exported="false" />
+        <activity
+            android:name=".Settings.User"
+            android:exported="false" />
+        <activity
+            android:name=".Settings.Language"
+            android:exported="false" />
+        <activity
+            android:name=".Settings.Notificacions"
+            android:exported="false" />
+        <activity
+            android:name=".PopUpHelp1"
+            android:exported="false" />
     </application>
+
 </manifest>

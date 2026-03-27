@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fhubo.City.CityActivity
+import com.example.fhubo.EstadistiquesActivity
 import com.example.fhubo.Favorites.FavoritesActivity
 import com.example.fhubo.Login
 import com.example.fhubo.Main.MainActivity
@@ -28,10 +29,15 @@ class Settings : AppCompatActivity() {
         val llNotifications = findViewById<LinearLayout>(R.id.ll_notifications)
         val llHelp = findViewById<LinearLayout>(R.id.ll_help)
         val llLogout = findViewById<LinearLayout>(R.id.ll_logout)
+        val llEstadistiques = findViewById<LinearLayout>(R.id.estadistiques)
+
         bottomMenu = findViewById(R.id.bottom_navigation)
 
         toolbar.setNavigationOnClickListener {
             finish()
+        }
+        llEstadistiques.setOnClickListener {
+            startActivity(Intent(this, EstadistiquesActivity::class.java))
         }
 
         llUser.setOnClickListener {

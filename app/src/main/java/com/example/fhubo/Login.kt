@@ -16,12 +16,12 @@ class Login : AppCompatActivity() {
 
     private val viewModel: LoginViewModel by viewModels()
 
-    // Declaració de vistes
     private lateinit var btnLogin: Button
     private lateinit var tvRegister: TextView
     private lateinit var tietEmail: TextInputEditText
     private lateinit var tietPassword: TextInputEditText
     private lateinit var tilEmail: TextInputLayout
+    private lateinit var tvNoLogin: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -30,22 +30,21 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Inicialitzem les vistes amb findViewById
         btnLogin = findViewById(R.id.btnLogin)
         tvRegister = findViewById(R.id.tvRegister)
         tietEmail = findViewById(R.id.tietEmail)
         tietPassword = findViewById(R.id.tietPassword)
         tilEmail = findViewById(R.id.tilEmail)
+        tvNoLogin = findViewById(R.id.tvNoLogin)
 
         setupListeners()
-        setupObservers() // <-- Nueva función para observar al ViewModel
+        setupObservers()
     }
 
     private fun setupListeners() {
         btnLogin.setOnClickListener {
             val email = tietEmail.text.toString()
             val password = tietPassword.text.toString()
-            // Simplemente le pasamos los datos al ViewModel, sin esperar 'return'
             viewModel.login(email, password)
         }
 
@@ -53,22 +52,25 @@ class Login : AppCompatActivity() {
             val intent = Intent(this, Signin::class.java)
             startActivity(intent)
         }
+        tvNoLogin.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
+
+
     private fun setupObservers() {
-        // Observar errores de email
         viewModel.emailError.observe(this) { error ->
             tilEmail.error = error
         }
 
-        // Observar errores generales de login
         viewModel.loginError.observe(this) { error ->
             if (error != null) {
                 Toast.makeText(this, error, Toast.LENGTH_LONG).show()
             }
         }
 
-        // Observar si el login fue un éxito
         viewModel.loginSuccess.observe(this) { success ->
             if (success) {
                 Toast.makeText(this, "Benvingut/da de nou!", Toast.LENGTH_SHORT).show()

@@ -59,7 +59,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     // Glide per carregar imatges
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    
+    implementation(libs.mpandroidchart)
     implementation(platform("com.google.firebase:firebase-bom:34.10.0"))
     implementation("com.google.firebase:firebase-analytics")
     androidTestImplementation(libs.androidx.junit)

@@ -15,7 +15,6 @@ class Signin : AppCompatActivity() {
 
     private val viewModel: RegisterViewModel by viewModels()
 
-    // Declaració de vistes
     private lateinit var btnRegister: Button
     private lateinit var tvNoLogin: TextView
     private lateinit var tvGoToLogin: TextView
@@ -32,7 +31,6 @@ class Signin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 
-        // Inicialitzem les vistes amb findViewById
         btnRegister = findViewById(R.id.btnRegister)
         tvNoLogin = findViewById(R.id.tvNoLogin)
         tvGoToLogin = findViewById(R.id.tvGoToLogin)
@@ -46,7 +44,7 @@ class Signin : AppCompatActivity() {
         tilConfirmPassword = findViewById(R.id.tilConfirmPassword)
 
         setupListeners()
-        setupObservers() // Configuramos los observadores del ViewModel
+        setupObservers()
     }
 
     private fun setupListeners() {
@@ -56,7 +54,6 @@ class Signin : AppCompatActivity() {
             val password = tietPassword.text.toString()
             val confirmPassword = tietConfirmPassword.text.toString()
 
-            // Pasamos la responsabilidad al ViewModel
             viewModel.register(name, password, confirmPassword, email)
         }
 
@@ -74,7 +71,6 @@ class Signin : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        // Observamos cada posible error y lo inyectamos en su vista correspondiente
         viewModel.usernameError.observe(this) { error ->
             tilUsername.error = error
         }
@@ -91,7 +87,6 @@ class Signin : AppCompatActivity() {
             tilConfirmPassword.error = error
         }
 
-        // Observamos el éxito del registro
         viewModel.registerSuccess.observe(this) { success ->
             if (success) {
                 val name = tietUsername.text.toString()
