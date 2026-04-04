@@ -6,12 +6,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.example.fhubo.Main.MainActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class Signin : AppCompatActivity() {
+class Signin : BaseActivity() {
 
     private val viewModel: RegisterViewModel by viewModels()
 

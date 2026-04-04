@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.android.application")
     id("com.google.gms.google-services")
 }
 
@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.splashscreen)
+    implementation("com.google.firebase:firebase-analytics")
     testImplementation(libs.junit)
     // Retrofit Core
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -60,8 +61,12 @@ dependencies {
     // Glide per carregar imatges
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.mpandroidchart)
-    implementation(platform("com.google.firebase:firebase-bom:34.10.0"))
-    implementation("com.google.firebase:firebase-analytics")
+    
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics.ktx)
+    implementation(libs.firebase.firestore)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

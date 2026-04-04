@@ -6,13 +6,12 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.fhubo.Main.MainActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class Login : AppCompatActivity() {
+class Login : BaseActivity() {
 
     private val viewModel: LoginViewModel by viewModels()
 
@@ -57,8 +56,6 @@ class Login : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-
 
     private fun setupObservers() {
         viewModel.emailError.observe(this) { error ->

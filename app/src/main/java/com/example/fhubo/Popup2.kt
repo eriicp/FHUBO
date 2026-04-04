@@ -2,12 +2,11 @@ package com.example.fhubo
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.fhubo.Main.MainActivity
 import com.google.android.material.button.MaterialButton
 
-class Popup2 : AppCompatActivity() {
+class Popup2 : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_popup2)

@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fhubo.BaseActivity
 import com.example.fhubo.City.CityActivity
 import com.example.fhubo.DataSource
 import com.example.fhubo.Favorites.FavoritesActivity
@@ -15,7 +15,7 @@ import com.example.fhubo.R
 import com.example.fhubo.Settings.Settings
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class CityLocationsActivity : AppCompatActivity() {
+class CityLocationsActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CityLocationAdapter

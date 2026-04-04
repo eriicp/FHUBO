@@ -16,7 +16,7 @@
         android:theme="@style/Theme.FHUBO"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".EstadistiquesActivity"
+            android:name=".Stats.EstadistiquesActivity"
             android:exported="false" />
         <activity
             android:name=".Login"
