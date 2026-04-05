@@ -4,16 +4,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.fhubo.BaseActivity
 import com.example.fhubo.R
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.launch
+import com.github.mikephil.charting.utils.ColorTemplate
 
 class EstadistiquesActivity : BaseActivity() {
 
@@ -27,54 +24,37 @@ class EstadistiquesActivity : BaseActivity() {
         vmodel.carregarDades(idUsuari)
 
         vmodel.estadistiques.observe(this) { estadistiques ->
+            FhuboStatsProvider.registrarVisita("EstadistiquesActivity")
+
             mostrarDadesEnergia(estadistiques.minutsUsTotal)
             dibuixarGraficActivities(estadistiques.vistesPerActivity)
             dibuixarGraficSeccions(estadistiques.tempsPerPestanya)
             dibuixarGraficPelicules(estadistiques.peliculesPerCategoria)
         }
 
-        // Botó per borrar dades (Dalt a la dreta)
-        findViewById<ImageButton>(R.id.btn_borrar_dades).setOnClickListener {
-            borrarDades(idUsuari)
+        // Configurar el botó de borrar
+        val btnBorrar = findViewById<ImageButton>(R.id.btn_borrar_dades)
+        btnBorrar.setOnClickListener {
+            FhuboStatsProvider.borrarDades()
+            // Forcem el guardat buit a Firebase immediatament
+            vmodel.guardarDades(idUsuari)
+            // Tornem a carregar per refrescar la UI (ara estarà buida)
+            vmodel.carregarDades(idUsuari)
         }
-
-        // Botó per pujar a Firebase (Abaix)
-        findViewById<MaterialButton>(R.id.btn_pujar_firebase).setOnClickListener {
-            pujarAFirebase(idUsuari)
-        }
-    }
-
-    private fun borrarDades(idUsuari: String) {
-        FhuboStatsProvider.dataEstadistica = FhuboEstadistica()
-        // Opcional: També podem forçar el guardat a Firebase després de borrar
-        lifecycleScope.launch {
-            val result = FhuboStatsProvider.guardarEstadistica(idUsuari)
-            if (result.isSuccess) {
-                Toast.makeText(this@EstadistiquesActivity, "Dades esborrades", Toast.LENGTH_SHORT).show()
-                vmodel.carregarDades(idUsuari) // Recarregar UI
-            }
-        }
-    }
-
-    private fun pujarAFirebase(idUsuari: String) {
-        lifecycleScope.launch {
-            val result = FhuboStatsProvider.guardarEstadistica(idUsuari)
-            if (result.isSuccess) {
-                Toast.makeText(this@EstadistiquesActivity, "Dades pujades correctament", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this@EstadistiquesActivity, "Error al pujar dades", Toast.LENGTH_SHORT).show()
-            }
-        }
+        
+        // Botó per tancar (opcional, si el toolbar navigation no està configurat)
+        findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar_estadistiques)
+            .setNavigationOnClickListener { finish() }
     }
 
     private fun mostrarDadesEnergia(minuts: Float) {
         val hores = minuts / 60.0
         val energiaKWh = hores * 0.002
-        val gCo2 = energiaKWh * 233.0
+        val kgCo2 = energiaKWh * 0.233
 
         val textCo2 = findViewById<TextView>(R.id.txtEnergiaCo2)
         textCo2.text = "Temps d'ús: ${hores.format(2)} hores\n" +
-                "CO2 generat: ${gCo2.format(2)} g"
+                "CO2 generat: ${kgCo2.format(2)} kg"
     }
 
     private fun dibuixarGraficActivities(vistes: HashMap<String, Int>) {
@@ -90,7 +70,7 @@ class EstadistiquesActivity : BaseActivity() {
         }
 
         val dataSet = BarDataSet(entries, "Visites")
-        dataSet.colors = listOf(Color.rgb(135, 206, 250), Color.rgb(255, 182, 193))
+        dataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
 
         val barData = BarData(dataSet)
         barChart.data = barData
@@ -114,24 +94,19 @@ class EstadistiquesActivity : BaseActivity() {
         }
 
         if (entries.isEmpty()) {
-            entries.add(PieEntry(1f, "Cap pel·lícula"))
+            entries.add(PieEntry(1f, "Sense dades"))
         }
 
-        val dataSet = PieDataSet(entries, "Pel·lícules per Categoria")
-        dataSet.colors = listOf(
-            Color.rgb(255, 102, 102),
-            Color.rgb(102, 255, 102),
-            Color.rgb(102, 102, 255),
-            Color.rgb(255, 255, 102),
-            Color.rgb(255, 102, 255)
-        )
+        val dataSet = PieDataSet(entries, "Gèneres")
+        dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
         dataSet.valueTextColor = Color.BLACK
         dataSet.valueTextSize = 12f
 
         val data = PieData(dataSet)
         pieChart.data = data
+        pieChart.centerText = "Pel·lícules\nper Gènere"
+        pieChart.setCenterTextSize(14f)
         pieChart.description.isEnabled = false
-        pieChart.centerText = "Categoris"
         pieChart.animateY(1000)
         pieChart.invalidate()
     }
@@ -139,39 +114,37 @@ class EstadistiquesActivity : BaseActivity() {
     private fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
     private fun dibuixarGraficSeccions(tempsPestanya: HashMap<String, Float>) {
-        val pieChart = findViewById<com.github.mikephil.charting.charts.PieChart>(R.id.piechartDobles)
-        val entries = ArrayList<PieEntry>()
+        val barChart = findViewById<com.github.mikephil.charting.charts.BarChart>(R.id.barChartSeccions)
+        val entries = ArrayList<BarEntry>()
+        val labels = ArrayList<String>()
 
-        val factorConversio = (0.002 * 233.0) / 60.0
-
+        var index = 0f
         for ((pestanya, minuts) in tempsPestanya) {
             if (minuts > 0) {
-                val gCo2Pestanya = minuts * factorConversio
-                entries.add(PieEntry(gCo2Pestanya.toFloat(), pestanya))
+                entries.add(BarEntry(index, minuts))
+                labels.add(pestanya)
+                index++
             }
         }
 
         if (entries.isEmpty()) {
-            entries.add(PieEntry(1f, "Sense dades"))
+            entries.add(BarEntry(0f, 1f))
+            labels.add("Sense dades")
         }
 
-        val dataSet = PieDataSet(entries, "")
-        dataSet.colors = listOf(
-            Color.rgb(155, 201, 255),
-            Color.rgb(255, 193, 155),
-            Color.rgb(155, 255, 193),
-            Color.rgb(212, 155, 255)
-        )
+        val dataSet = BarDataSet(entries, "Minuts")
+        dataSet.colors = ColorTemplate.LIBERTY_COLORS.toList()
         dataSet.valueTextColor = Color.BLACK
         dataSet.valueTextSize = 12f
 
-        val data = PieData(dataSet)
-        pieChart.data = data
+        val data = BarData(dataSet)
+        barChart.data = data
 
-        pieChart.description.isEnabled = false
-        pieChart.centerText = "CO2 per Secció (g)"
-        pieChart.setHoleColor(Color.TRANSPARENT)
-        pieChart.animateY(1000)
-        pieChart.invalidate()
+        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        barChart.xAxis.setGranularity(1f)
+        barChart.description.isEnabled = false
+        barChart.animateY(1000)
+        barChart.invalidate()
     }
 }

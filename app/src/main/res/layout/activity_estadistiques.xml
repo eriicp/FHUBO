@@ -40,7 +40,8 @@
                 android:layout_marginEnd="16dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_delete"
-                app:tint="@android:color/holo_red_dark" />
+                app:tint="@android:color/holo_red_dark"
+                android:contentDescription="Borrar dades" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -87,14 +88,15 @@
                     android:id="@+id/txtEnergiaCo2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Temps en aplicació: 2h 15min"
+                    android:text="Cregant dades..."
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CO2 generat (g)"
-                    android:textStyle="italic" />
+                    android:text="Visites per Activity"
+                    android:textStyle="italic"
+                    android:layout_marginTop="10dp"/>
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barChartActivities"
                     android:layout_width="match_parent"
@@ -104,10 +106,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ús per seccions (%)"
+                    android:text="Consum CO2 per secció (g)"
                     android:textStyle="italic" />
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/piechartDobles"
+                <!-- Gràfic 2: Canviat a BarChart per diferenciar del 3r -->
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChartSeccions"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginBottom="20dp" />
@@ -115,9 +118,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Noves pel·lícules afegides"
+                    android:text="Pel·lícules per categoria"
                     android:textStyle="italic" />
 
+                <!-- Gràfic 3: Es manté com a PieChart (Donut) -->
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartCustom"
                     android:layout_width="match_parent"

@@ -8,16 +8,33 @@ import kotlinx.coroutines.tasks.await
 object FhuboStatsProvider {
     val db: FirebaseFirestore by lazy { Firebase.firestore }
     var dataEstadistica = FhuboEstadistica()
+    var dadesCarregades = false 
 
     suspend fun carregarEstadistica(idUsuari: String): Result<FhuboEstadistica> {
         return try {
             val doc = db.collection("FhuboStats").document(idUsuari).get().await()
             val valor = doc.toObject(FhuboEstadistica::class.java)
+            
             if (valor != null) {
+                // Si ja teníem dades d'aquesta sessió (ex: visita a MainActivity), les sumem a les de Firebase
+                if (!dadesCarregades) {
+                    valor.minutsUsTotal += dataEstadistica.minutsUsTotal
+                    valor.co2Total += dataEstadistica.co2Total
+                    valor.peliculesAfegides += dataEstadistica.peliculesAfegides
+                    
+                    dataEstadistica.vistesPerActivity.forEach { (k, v) ->
+                        valor.vistesPerActivity[k] = (valor.vistesPerActivity[k] ?: 0) + v
+                    }
+                    dataEstadistica.tempsPerPestanya.forEach { (k, v) ->
+                        valor.tempsPerPestanya[k] = (valor.tempsPerPestanya[k] ?: 0f) + v
+                    }
+                }
                 dataEstadistica = valor
+                dadesCarregades = true
                 Result.success(valor)
             } else {
-                Result.failure<FhuboEstadistica>(Exception("Estadística no trobada"))
+                dadesCarregades = true
+                Result.success(dataEstadistica) // Retornem el que tenim si el document no existeix
             }
         } catch (e: Exception) {
             Result.failure<FhuboEstadistica>(e)
@@ -25,6 +42,8 @@ object FhuboStatsProvider {
     }
 
     suspend fun guardarEstadistica(idUsuari: String): Result<Unit> {
+        if (!dadesCarregades) return Result.failure(Exception("No es pot guardar sense carregar primer"))
+        
         return try {
             db.collection("FhuboStats").document(idUsuari).set(dataEstadistica).await()
             Result.success(Unit)
@@ -40,6 +59,8 @@ object FhuboStatsProvider {
 
     fun sumarMinutsUs(minuts: Float) {
         dataEstadistica.minutsUsTotal += minuts
+        val gCo2Afegit = (minuts / 60.0f) * 0.002f * 233.0f
+        dataEstadistica.co2Total += gCo2Afegit
     }
 
     fun registrarTempsPestanya(nomPestanya: String, minuts: Float) {
@@ -51,5 +72,10 @@ object FhuboStatsProvider {
         dataEstadistica.peliculesAfegides++
         val count = dataEstadistica.peliculesPerCategoria[categoria] ?: 0
         dataEstadistica.peliculesPerCategoria[categoria] = count + 1
+    }
+
+    fun borrarDades() {
+        dataEstadistica = FhuboEstadistica()
+        dadesCarregades = true
     }
 }

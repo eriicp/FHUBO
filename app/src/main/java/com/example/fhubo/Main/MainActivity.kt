@@ -22,6 +22,7 @@ import com.example.fhubo.Favorites.FavoritesActivity
 import com.example.fhubo.PopUpHelp1
 import com.example.fhubo.R
 import com.example.fhubo.Settings.Settings
+import com.example.fhubo.Stats.FhuboStatsProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,6 +50,12 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // CARREGAR ESTADÍSTIQUES DE FIREBASE AL PRINCIPI DE L'APP
+        // Així evitem sobrescriure amb dades buides i mantenim l'històric
+        lifecycleScope.launch {
+            FhuboStatsProvider.carregarEstadistica("usuariTest")
+        }
 
         initViews()
         setupSearchView()
