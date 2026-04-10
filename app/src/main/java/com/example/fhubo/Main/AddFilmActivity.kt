@@ -5,14 +5,15 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.fhubo.BaseActivity
 import com.example.fhubo.R
+import com.example.fhubo.Stats.FhuboStatsProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AddFilmActivity : AppCompatActivity() {
+class AddFilmActivity : BaseActivity() {
 
     private lateinit var etName: EditText
     private lateinit var etCategory: EditText
@@ -57,6 +58,10 @@ class AddFilmActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val message = response.body()?.string() ?: "Guardat"
                     Toast.makeText(this@AddFilmActivity, message, Toast.LENGTH_SHORT).show()
+                    
+                    // Registrar l'estadística de la pel·lícula afegida per categoria
+                    FhuboStatsProvider.afegirPelicula(category)
+
                     finish() 
                 } else {
                     val errorMsg = response.errorBody()?.string() ?: "Error ${response.code()}"

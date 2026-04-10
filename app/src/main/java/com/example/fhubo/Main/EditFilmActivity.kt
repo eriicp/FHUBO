@@ -6,14 +6,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.fhubo.BaseActivity
 import com.example.fhubo.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class EditFilmActivity : AppCompatActivity() {
+class EditFilmActivity : BaseActivity() {
 
     private lateinit var etName: EditText
     private lateinit var etCategory: EditText

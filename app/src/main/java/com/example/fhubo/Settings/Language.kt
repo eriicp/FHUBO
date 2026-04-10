@@ -1,11 +1,11 @@
 package com.example.fhubo.Settings
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.example.fhubo.BaseActivity
 import com.example.fhubo.R
 import com.google.android.material.appbar.MaterialToolbar
 
-class Language : AppCompatActivity() {
+class Language : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_language)

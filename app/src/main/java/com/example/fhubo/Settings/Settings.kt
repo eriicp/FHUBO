@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.example.fhubo.BaseActivity
 import com.example.fhubo.City.CityActivity
-import com.example.fhubo.EstadistiquesActivity
+import com.example.fhubo.Stats.EstadistiquesActivity
 import com.example.fhubo.Favorites.FavoritesActivity
 import com.example.fhubo.Login
 import com.example.fhubo.Main.MainActivity
@@ -14,7 +14,7 @@ import com.example.fhubo.R
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class Settings : AppCompatActivity() {
+class Settings : BaseActivity() {
 
     private lateinit var bottomMenu: BottomNavigationView
 

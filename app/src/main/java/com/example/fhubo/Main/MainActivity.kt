@@ -14,23 +14,24 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fhubo.BaseActivity
 import com.example.fhubo.City.CityActivity
 import com.example.fhubo.DataSource
 import com.example.fhubo.Favorites.FavoritesActivity
 import com.example.fhubo.PopUpHelp1
 import com.example.fhubo.R
 import com.example.fhubo.Settings.Settings
+import com.example.fhubo.Stats.FhuboStatsProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     private var currentCategory: String = "Totes"
     private var currentSortOrder: String = SORT_NONE
@@ -59,6 +60,12 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // CARREGAR ESTADÍSTIQUES DE FIREBASE AL PRINCIPI DE L'APP
+        // Així evitem sobrescriure amb dades buides i mantenim l'històric
+        lifecycleScope.launch {
+            FhuboStatsProvider.carregarEstadistica("usuariTest")
+        }
 
         initViews()
         

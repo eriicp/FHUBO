@@ -2,13 +2,13 @@ package com.example.fhubo.Settings
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.fhubo.BaseActivity
 import com.example.fhubo.R
 import com.google.android.material.appbar.MaterialToolbar
 
-class User : AppCompatActivity() {
+class User : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.fhubo.Main.EditFilmActivity
 import com.example.fhubo.Main.ItemAPI
@@ -13,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PopUpHelp1 : AppCompatActivity() {
+class PopUpHelp1 : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_popup_help1)
