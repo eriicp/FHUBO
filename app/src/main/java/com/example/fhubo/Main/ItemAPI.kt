@@ -26,7 +26,7 @@ class ItemAPI {
 
                 mItemAPI = Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create(gsondateformat))
-                    .baseUrl("http://157.151.191.91:8081/")
+                    .baseUrl("https://pokeapi.co/api/v2/")
                     .client(unsafeOkHttpClient)
                     .build()
                     .create(filmsService::class.java)
@@ -52,7 +52,7 @@ class ItemAPI {
 
                 return OkHttpClient.Builder()
                     .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-                    .hostnameVerifier { _, _ -> true } // Accepta qualsevol hostname
+                    .hostnameVerifier { _, _ -> true }
                     .build()
 
             } catch (e: Exception) {
