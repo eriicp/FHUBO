@@ -3,6 +3,9 @@ package com.example.fhubo.Main
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -32,14 +35,21 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     private var currentCategory: String = "Totes"
     private var currentSortOrder: String = SORT_NONE
-    private var allFilms: List<Main> = DataSource.films 
+    private var allFilms: List<Main> = DataSource.films
 
     private lateinit var btnFilter: ImageButton
     private lateinit var btnAdd: ImageButton
     private lateinit var svMain: SearchView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var buttonVoice: ImageButton
     private lateinit var adapter: MainAdapter
     private lateinit var bottomMenu: BottomNavigationView
+    private lateinit var recognizer: SpeechRecognizer
+
+    private val recognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+        putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-ES")
+    }
 
     companion object {
         const val SORT_NONE = "none"
@@ -58,10 +68,33 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
         }
 
         initViews()
+        
+        recognizer = SpeechRecognizer.createSpeechRecognizer(this)
+        
         setupSearchView()
         setupRecyclerView()
         setupListeners()
         setupBottomNavigation()
+
+        recognizer.setRecognitionListener(object : RecognitionListener {
+            override fun onResults(results: Bundle?) {
+                val spokenText = results
+                    ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                    ?.get(0)
+                    ?.lowercase()
+
+                handleVoiceCommand(spokenText)
+            }
+
+            override fun onError(error: Int) {}
+            override fun onReadyForSpeech(params: Bundle?) {}
+            override fun onBeginningOfSpeech() {}
+            override fun onRmsChanged(rmsdB: Float) {}
+            override fun onBufferReceived(buffer: ByteArray?) {}
+            override fun onEndOfSpeech() {}
+            override fun onPartialResults(partialResults: Bundle?) {}
+            override fun onEvent(eventType: Int, params: Bundle?) {}
+        })
     }
 
     override fun onResume() {
@@ -75,12 +108,13 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
         svMain = findViewById(R.id.svMain)
         bottomMenu = findViewById(R.id.bottom_navigation)
         recyclerView = findViewById(R.id.rvFilms)
+        buttonVoice = findViewById(R.id.buttonVoice)
     }
 
     private fun setupSearchView() {
-        val acompleteTextView = svMain.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        acompleteTextView.setTextColor(Color.WHITE)
-        acompleteTextView.setHintTextColor(Color.LTGRAY)
+        val searchText = svMain.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchText?.setTextColor(Color.WHITE)
+        searchText?.setHintTextColor(Color.LTGRAY)
     }
 
     private fun setupRecyclerView() {
@@ -105,6 +139,9 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     private fun setupListeners() {
         btnFilter.setOnClickListener { showCategoryPopupMenu(it) }
+        buttonVoice.setOnClickListener {
+            recognizer.startListening(recognizerIntent)
+        }
         svMain.setOnQueryTextListener(this)
         btnAdd.setOnClickListener {
             val intent = Intent(this, AddFilmActivity::class.java)
@@ -162,20 +199,75 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
         performSearch(newText)
         return true
     }
+    private fun handleVoiceCommand(command: String?) {
+        if (command == null) return
 
+        Toast.makeText(this, "Has dicho: $command", Toast.LENGTH_SHORT).show()
+
+        when {
+            // Navegación Básica
+            command.contains("añadir") || command.contains("nuevo") || command.contains("nueva") -> {
+                startActivity(Intent(this, AddFilmActivity::class.java))
+            }
+            command.contains("atrás") || command.contains("volver") -> {
+                onBackPressedDispatcher.onBackPressed()
+            }
+            command.contains("apagar") || command.contains("cerrar sesión") || command.contains("salir") -> {
+                finish()
+            }
+            command.contains("ciudades") || command.contains("mapa") -> {
+                startActivity(Intent(this, CityActivity::class.java))
+            }
+            command.contains("favoritos") -> {
+                startActivity(Intent(this, FavoritesActivity::class.java))
+            }
+            command.contains("perfil") || command.contains("ajustes") || command.contains("configuración") -> {
+                startActivity(Intent(this, Settings::class.java))
+            }
+
+            // Búsqueda Dinámica
+            command.startsWith("buscar ") -> {
+                val query = command.replace("buscar ", "").trim()
+                svMain.setQuery(query, true)
+            }
+            command.contains("limpiar búsqueda") || command.contains("borrar búsqueda") -> {
+                svMain.setQuery("", true)
+            }
+
+            // Ordenación y Filtros
+            command.contains("recientes") || command.contains("nuevos primero") -> {
+                currentSortOrder = SORT_YEAR_DESC
+                performSearch(svMain.query.toString())
+            }
+            command.contains("antiguos") || command.contains("viejos") -> {
+                currentSortOrder = SORT_YEAR_ASC
+                performSearch(svMain.query.toString())
+            }
+            command.contains("quitar filtros") || command.contains("todas las categorías") || command.contains("quitar filtro") -> {
+                currentCategory = "Todas"
+                performSearch(svMain.query.toString())
+            }
+
+            // Ayuda
+            command.contains("ayuda") || command.contains("qué puedo decir") -> {
+                val helpText = "Prueba: 'buscar [nombre]', 'ir a favoritos', 'añadir película', 'ordenar por recientes', 'ajustes' o 'salir'."
+                Toast.makeText(this, helpText, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
     private fun showCategoryPopupMenu(view: View) {
         val popup = PopupMenu(this, view)
-        
+
         // 1. Obtenim totes les categories úniques que hi ha actualment a la BBDD (allFilms)
         val uniqueCategories = allFilms.map { it.category }.distinct().sorted()
 
         // 2. Creem dinàmicament el menú
         val menu = popup.menu
-        
+
         // Afegim l'opció per defecte "Totes"
         val subMenuCategories = menu.addSubMenu("Categories")
         subMenuCategories.add(Menu.NONE, Menu.FIRST, Menu.NONE, "Totes")
-        
+
         // Afegim les categories que hem trobat a la BBDD
         uniqueCategories.forEachIndexed { index, category ->
             subMenuCategories.add(Menu.NONE, Menu.FIRST + index + 1, Menu.NONE, category)
@@ -204,6 +296,8 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
         popup.show()
     }
 
+
+
     private fun performSearch(query: String?) {
         val categorizedList = if (currentCategory == "Totes") {
             allFilms
@@ -214,8 +308,8 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
         val filteredList = if (query.isNullOrBlank()) {
             categorizedList
         } else {
-            categorizedList.filter { 
-                it.name.contains(query, ignoreCase = true) || 
+            categorizedList.filter {
+                it.name.contains(query, ignoreCase = true) ||
                 it.year.toString().contains(query) ||
                 it.category.contains(query, ignoreCase = true)
             }

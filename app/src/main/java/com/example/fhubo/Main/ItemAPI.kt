@@ -52,7 +52,7 @@ class ItemAPI {
 
                 return OkHttpClient.Builder()
                     .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-                    .hostnameVerifier { _, _ -> true }
+                    .hostnameVerifier { _, _ -> true } // Accepta qualsevol hostname
                     .build()
 
             } catch (e: Exception) {

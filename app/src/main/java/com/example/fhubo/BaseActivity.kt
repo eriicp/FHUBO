@@ -25,7 +25,7 @@ open class BaseActivity : AppCompatActivity() {
         val minutsFloat = milisegons.toFloat() / 60000f
 
         FhuboStatsProvider.sumarMinutsUs(minutsFloat)
-        
+
         // Registrar temps per la secció específica (nom de l'activitat)
         val activityName = this.javaClass.simpleName
         FhuboStatsProvider.registrarTempsPestanya(activityName, minutsFloat)

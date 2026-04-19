@@ -32,7 +32,7 @@ interface filmsService {
     // Esborrar un: DELETE /api/films/{id}
     @DELETE("api/films/{id}")
     suspend fun deleteFilm(@Path("id") id: Long): Response<ResponseBody>
-
+    
     // Esborrar tot: DELETE /api/films
     @DELETE("api/films")
     suspend fun deleteAllFilms(): Response<ResponseBody>

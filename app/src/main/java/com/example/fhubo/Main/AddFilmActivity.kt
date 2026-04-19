@@ -25,15 +25,15 @@ class AddFilmActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_film)
 
-            etName = findViewById(R.id.etName)
-            etCategory = findViewById(R.id.etCategory)
-            etYear = findViewById(R.id.etYear)
-            etImagePath = findViewById(R.id.etImagePath)
-            btnSave = findViewById(R.id.btnSave)
+        etName = findViewById(R.id.etName)
+        etCategory = findViewById(R.id.etCategory)
+        etYear = findViewById(R.id.etYear)
+        etImagePath = findViewById(R.id.etImagePath)
+        btnSave = findViewById(R.id.btnSave)
 
-            btnSave.setOnClickListener {
-                saveFilm()
-            }
+        btnSave.setOnClickListener {
+            saveFilm()
+        }
     }
 
     private fun saveFilm() {
