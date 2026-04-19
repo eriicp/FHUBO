@@ -9,10 +9,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.fhubo" />
+                  <option name="mobileSdkAppId" value="1:975940504223:android:c9d08658c3e08d8fcef0aa" />
+                  <option name="projectId" value="fhubo-a44a8" />
+                  <option name="projectNumber" value="975940504223" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

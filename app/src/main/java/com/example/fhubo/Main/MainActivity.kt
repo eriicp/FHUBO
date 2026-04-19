@@ -112,7 +112,7 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun setupSearchView() {
-        val acompleteTextView = svMain.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        val acompleteTextView = svMain.findViewById<EditText>(R.id.search_container)
         acompleteTextView.setTextColor(Color.WHITE)
         acompleteTextView.setHintTextColor(Color.LTGRAY)
     }
@@ -200,15 +200,36 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
         return true
     }
     private fun handleVoiceCommand(command: String?) {
+        if (command == null) return
+
         when {
-            command?.contains("apagar") == true -> {
-            finish()
+            // NAVEGACIÓN DEL MENÚ INFERIOR
+            command.contains("pelis") || command.contains("películas") -> {
+                bottomMenu.selectedItemId = R.id.action_film
             }
-            command?.contains(" enrere") == true -> {
+            command.contains("ciutats") || command.contains("ciudades") -> {
+                bottomMenu.selectedItemId = R.id.action_city
+            }
+            command.contains("preferits") || command.contains("favoritos") -> {
+                bottomMenu.selectedItemId = R.id.action_favorite
+            }
+            command.contains("perfil") || command.contains("ajustes") -> {
+                bottomMenu.selectedItemId = R.id.action_profile
+            }
+
+
+            command.contains("apagar") -> {
+                finish()
+            }
+            command.contains("enrere") || command.contains("atrás") -> {
                 onBackPressedDispatcher.onBackPressed()
             }
-            command?.contains("acceptar") == true -> {
-                // Guardar dades, fer submit, etc.
+            command.contains("acceptar") || command.contains("aceptar") -> {
+
+            }
+            else -> {
+                // Opcional: Mostrar un mensaje si no entiende la orden
+                Toast.makeText(this, "Comanda no reconeguda: $command", Toast.LENGTH_SHORT).show()
             }
         }
     }
