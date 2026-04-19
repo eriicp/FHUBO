@@ -112,9 +112,9 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun setupSearchView() {
-        val acompleteTextView = svMain.findViewById<EditText>(R.id.search_container)
-        acompleteTextView.setTextColor(Color.WHITE)
-        acompleteTextView.setHintTextColor(Color.LTGRAY)
+        val searchText = svMain.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchText?.setTextColor(Color.WHITE)
+        searchText?.setHintTextColor(Color.LTGRAY)
     }
 
     private fun setupRecyclerView() {
@@ -202,34 +202,56 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
     private fun handleVoiceCommand(command: String?) {
         if (command == null) return
 
+        Toast.makeText(this, "Has dicho: $command", Toast.LENGTH_SHORT).show()
+
         when {
-            // NAVEGACIÓN DEL MENÚ INFERIOR
-            command.contains("pelis") || command.contains("películas") -> {
-                bottomMenu.selectedItemId = R.id.action_film
+            // Navegación Básica
+            command.contains("añadir") || command.contains("nuevo") || command.contains("nueva") -> {
+                startActivity(Intent(this, AddFilmActivity::class.java))
             }
-            command.contains("ciutats") || command.contains("ciudades") -> {
-                bottomMenu.selectedItemId = R.id.action_city
-            }
-            command.contains("preferits") || command.contains("favoritos") -> {
-                bottomMenu.selectedItemId = R.id.action_favorite
-            }
-            command.contains("perfil") || command.contains("ajustes") -> {
-                bottomMenu.selectedItemId = R.id.action_profile
-            }
-
-
-            command.contains("apagar") -> {
-                finish()
-            }
-            command.contains("enrere") || command.contains("atrás") -> {
+            command.contains("atrás") || command.contains("volver") -> {
                 onBackPressedDispatcher.onBackPressed()
             }
-            command.contains("acceptar") || command.contains("aceptar") -> {
-
+            command.contains("apagar") || command.contains("cerrar sesión") || command.contains("salir") -> {
+                finish()
             }
-            else -> {
-                // Opcional: Mostrar un mensaje si no entiende la orden
-                Toast.makeText(this, "Comanda no reconeguda: $command", Toast.LENGTH_SHORT).show()
+            command.contains("ciudades") || command.contains("mapa") -> {
+                startActivity(Intent(this, CityActivity::class.java))
+            }
+            command.contains("favoritos") -> {
+                startActivity(Intent(this, FavoritesActivity::class.java))
+            }
+            command.contains("perfil") || command.contains("ajustes") || command.contains("configuración") -> {
+                startActivity(Intent(this, Settings::class.java))
+            }
+
+            // Búsqueda Dinámica
+            command.startsWith("buscar ") -> {
+                val query = command.replace("buscar ", "").trim()
+                svMain.setQuery(query, true)
+            }
+            command.contains("limpiar búsqueda") || command.contains("borrar búsqueda") -> {
+                svMain.setQuery("", true)
+            }
+
+            // Ordenación y Filtros
+            command.contains("recientes") || command.contains("nuevos primero") -> {
+                currentSortOrder = SORT_YEAR_DESC
+                performSearch(svMain.query.toString())
+            }
+            command.contains("antiguos") || command.contains("viejos") -> {
+                currentSortOrder = SORT_YEAR_ASC
+                performSearch(svMain.query.toString())
+            }
+            command.contains("quitar filtros") || command.contains("todas las categorías") || command.contains("quitar filtro") -> {
+                currentCategory = "Todas"
+                performSearch(svMain.query.toString())
+            }
+
+            // Ayuda
+            command.contains("ayuda") || command.contains("qué puedo decir") -> {
+                val helpText = "Prueba: 'buscar [nombre]', 'ir a favoritos', 'añadir película', 'ordenar por recientes', 'ajustes' o 'salir'."
+                Toast.makeText(this, helpText, Toast.LENGTH_LONG).show()
             }
         }
     }
