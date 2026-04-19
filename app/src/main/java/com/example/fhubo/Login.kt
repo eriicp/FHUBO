@@ -7,9 +7,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import com.example.fhubo.Main.MainActivity
+import com.example.fhubo.Stats.FhuboStatsProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 
 class Login : BaseActivity() {
 
@@ -28,6 +31,11 @@ class Login : BaseActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // Carregar estadístiques a l'inici de l'aplicació
+        lifecycleScope.launch {
+            FhuboStatsProvider.carregarEstadistica("usuariTest")
+        }
 
         btnLogin = findViewById(R.id.btnLogin)
         tvRegister = findViewById(R.id.tvRegister)

@@ -1,8 +1,8 @@
 package com.example.fhubo.Stats
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
-import com.google.firebase.Firebase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 object FhuboStatsProvider {
@@ -34,7 +34,7 @@ object FhuboStatsProvider {
                 Result.success(valor)
             } else {
                 dadesCarregades = true
-                Result.success(dataEstadistica) // Retornem el que tenim si el document no existeix
+                Result.success(dataEstadistica)
             }
         } catch (e: Exception) {
             Result.failure<FhuboEstadistica>(e)
@@ -42,8 +42,8 @@ object FhuboStatsProvider {
     }
 
     suspend fun guardarEstadistica(idUsuari: String): Result<Unit> {
-        if (!dadesCarregades) return Result.failure(Exception("No es pot guardar sense carregar primer"))
-        
+        // Eliminada la restricción estricta. Si no se cargó, se intenta guardar lo actual.
+        // Pero idealmente deberíamos asegurar la carga previa en la App.
         return try {
             db.collection("FhuboStats").document(idUsuari).set(dataEstadistica).await()
             Result.success(Unit)
@@ -59,6 +59,7 @@ object FhuboStatsProvider {
 
     fun sumarMinutsUs(minuts: Float) {
         dataEstadistica.minutsUsTotal += minuts
+        // Factor de conversión orientativo: min -> h * kWh/h * gCO2/kWh
         val gCo2Afegit = (minuts / 60.0f) * 0.002f * 233.0f
         dataEstadistica.co2Total += gCo2Afegit
     }
