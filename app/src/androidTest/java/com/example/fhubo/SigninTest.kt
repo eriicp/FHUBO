@@ -18,7 +18,7 @@ class SigninTest {
 
     @Test // Botó activat i error per nom buit al clicar
     fun nom_buit_mostra_error_ui() {
-        // A diferència d'Allercheck, a FHUBO el botó està actiu, comprovem que llença l'error al fer clic
+        // el botó està actiu, comprovem que llença l'error al fer clic
         onView(withId(R.id.btnRegister)).perform(click())
 
         onView(withText("El nom d'usuari no pot estar buit"))
