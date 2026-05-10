@@ -35,8 +35,10 @@ class RegisterViewModel : ViewModel() {
             _usernameError.value = null
         }
 
-        // 2. Validar email
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-zA-Z]{2,}$"
+
+        // 2. Comprovem si el correu coincideix amb el format
+        if (!email.matches(emailRegex.toRegex())) {
             _emailError.value = "El format del correu no és vàlid"
             hasError = true
         } else {

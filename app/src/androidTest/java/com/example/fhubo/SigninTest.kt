@@ -72,4 +72,31 @@ class SigninTest {
         // Clica l'opció inferior
         onView(withId(R.id.tvNoLogin)).perform(click())
     }
+    @Test //  Les contrasenyes no coincideixen (UI)
+    fun confirmacio_diferent_mostra_error_ui() {
+        // Omplim les dades, però la confirmació de la contrasenya és diferent
+        onView(withId(R.id.tietUsername)).perform(typeText("Itzan"), closeSoftKeyboard())
+        onView(withId(R.id.tietEmail)).perform(typeText("itzan@test.com"), closeSoftKeyboard())
+        onView(withId(R.id.tietPassword)).perform(typeText("Password123!"), closeSoftKeyboard())
+        onView(withId(R.id.tietConfirmPassword)).perform(typeText("Error123!"), closeSoftKeyboard())
+
+        onView(withId(R.id.btnRegister)).perform(click())
+
+        // Verifiquem que l'usuari veu l'error visualment sota el camp de confirmació
+        onView(withText("Les contrasenyes no coincideixen"))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test //  Contrasenya buida (UI)
+    fun contrasenya_buida_mostra_error_ui() {
+        // Només omplim nom i correu, ens oblidem de la contrasenya
+        onView(withId(R.id.tietUsername)).perform(typeText("Itzan"), closeSoftKeyboard())
+        onView(withId(R.id.tietEmail)).perform(typeText("itzan@test.com"), closeSoftKeyboard())
+
+        onView(withId(R.id.btnRegister)).perform(click())
+
+        // Comprovem que salta l'error de la contrasenya
+        onView(withText("La contrasenya te menys de 8 caracters"))
+            .check(matches(isDisplayed()))
+    }
 }
